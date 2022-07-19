@@ -9,6 +9,7 @@ module.exports = {
       fontFamily: {
         appareo: "Appareo, cursive",
         yan: "Yantramanav, serif",
+        steelfish: "Steelfish, serif",
       },
       animation: {
         blob: "blob 12s infinite",

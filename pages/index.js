@@ -13,13 +13,13 @@ export default function Home() {
 
       <main className="bg-neutral-800 min-h-[100vh]">
         <div className="relative w-full h-full">
-          <div className="absolute bg-neutral-800 bg-opacity-50 w-full h-full flex justify-center items-center text-violet-300 text-[40px] font-appareo text-center">
+          <div className="absolute bg-neutral-800 bg-opacity-50 w-full h-full flex justify-center items-center text-violet-300 text-[60px] font-steelfish text-center">
             <h1>
-              Nattklubben
+              NATTKLUBBEN
               <br />
-              nära
+              NÄRA
               <br />
-              studenterna
+              STUDENTERNA
             </h1>
           </div>
           <video src="/mobile-hero.mp4" playsInline autoPlay loop muted />
