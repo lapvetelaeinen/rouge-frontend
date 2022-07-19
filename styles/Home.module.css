@@ -10,6 +10,7 @@
 
 .mediaScroller {
   padding-bottom: 40px;
+  margin-left: 10px;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 73%;

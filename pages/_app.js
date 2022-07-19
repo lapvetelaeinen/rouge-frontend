@@ -1,11 +1,14 @@
 import "../styles/globals.css";
 import Layout from "../components/Layout.js";
+import { EventContext, EventProvider } from "../contexts/EventContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <EventProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </EventProvider>
   );
 }
 

@@ -47,7 +47,10 @@ function EventCard({ event }) {
     //     </div>
     //   </div>
     // </div>
-    <div className="bg-neutral-100 mr-4 rounded-3xl">
+    <div
+      className="bg-neutral-100 mr-4 rounded-3xl"
+      onClick={() => router.push(`/event/${event.eventId}`)}
+    >
       <Image
         src={eventImage}
         alt=""

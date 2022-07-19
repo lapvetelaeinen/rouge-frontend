@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { EventContext } from "../contexts/EventContext";
+import { useContext } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Calendar from "../components/Calendar";
@@ -10,11 +12,17 @@ import EventCard from "../components/EventCard";
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export default function Home() {
+  // see if possible to save events in context
+  const { events, saveEvents } = useContext(EventContext);
   const { data, error } = useSWR("/api/events", fetcher);
 
   if (error) return "An error has occurred.";
   if (!data) return "Loading...";
   console.log(error);
+  console.log(events);
+
+  saveEvents(data);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -47,11 +55,6 @@ export default function Home() {
           <h2 className="font-steelfish text-[100px] text-[#d57187] pl-4 pb-4">
             Biljetter <p className="inline text-5xl pl-6">🎟️</p>
           </h2>
-          {/* <div className={styles.mediaScroller}>
-            {posts.map((post) => (
-              <EventCard id={post.id} post={post} />
-            ))}
-          </div> */}
           <div className={styles.mediaScroller}>
             {data.map((event) => (
               <EventCard key={event.eventId} id={event.eventId} event={event} />
