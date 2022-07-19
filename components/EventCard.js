@@ -1,6 +1,7 @@
 import { useRouter } from "next/router.js";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { Discovery } from "aws-sdk";
 
 function EventCard({ event }) {
   const router = useRouter();
@@ -26,25 +27,42 @@ function EventCard({ event }) {
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-    <div className="pl-4" onClick={() => router.push(`/post/${post.id}`)}>
-      <div className="relative drop-shadow-xl">
-        {event.image && eventImage && (
-          <Image
-            src={eventImage}
-            alt=""
-            height={400}
-            width={400}
-            className="rounded-md"
-            priority
-          />
-        )}
-        <div className="absolute bottom-8 w-full bg-violet-200 p-2 flex justify-between px-3">
-          <div className="text-neutral-900">
-            <h2 className="font-appareo text-2xl">{event.title}</h2>
-            <p className="font-appareo">{event.date}</p>
-          </div>
-        </div>
-      </div>
+    // <div className="pl-4" onClick={() => router.push(`/post/${post.id}`)}>
+    //   <div className="relative drop-shadow-xl">
+    //     {event.image && eventImage && (
+    //       <Image
+    //         src={eventImage}
+    //         alt=""
+    //         height={400}
+    //         width={400}
+    //         className="rounded-md"
+    //         priority
+    //       />
+    //     )}
+    //     <div className="absolute bottom-8 w-full bg-violet-200 p-2 flex justify-between px-3">
+    //       <div className="text-neutral-900">
+    //         <h2 className="font-steelfish text-4xl">{event.title}</h2>
+    //         <p className="font-appareo">{event.date}</p>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="bg-neutral-100 mr-4 rounded-3xl">
+      <Image
+        src={eventImage}
+        alt=""
+        className="rounded-t-3xl"
+        priority
+        height={400}
+        width={400}
+      />
+
+      <h2 className="text-5xl font-steelfish text-center text-neutral-800 pt-2">
+        {event.title}
+      </h2>
+      <p className="font-appareo text-center pt-2 pb-4 text-neutral-600">
+        {event.date}
+      </p>
     </div>
   );
 }
