@@ -8,6 +8,20 @@
   align-items: center;
 }
 
+.mediaScroller {
+  padding-bottom: 40px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 73%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline mandatory;
+}
+
+.mediaScroller > * {
+  scroll-snap-align: start;
+}
+
 .footer {
   display: flex;
   flex: 1;

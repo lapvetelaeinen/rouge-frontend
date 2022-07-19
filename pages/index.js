@@ -1,8 +1,20 @@
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Calendar from "../components/Calendar";
 import styles from "../styles/Home.module.css";
+import useSWR from "swr";
+import axios from "axios";
+import EventCard from "../components/EventCard";
+
+const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export default function Home() {
+  const { data, error } = useSWR("/api/events", fetcher);
+
+  if (error) return "An error has occurred.";
+  if (!data) return "Loading...";
+  console.log(error);
   return (
     <div className={styles.container}>
       <Head>
@@ -23,6 +35,28 @@ export default function Home() {
             </h1>
           </div>
           <video src="/mobile-hero.mp4" playsInline autoPlay loop muted />
+        </div>
+        <div className="pt-10">
+          <h2 className="font-steelfish text-[100px] text-[#d57187] pl-4 pb-4">
+            Schema <p className="inline text-5xl pl-6">🥳</p>
+          </h2>
+
+          <Calendar />
+        </div>
+        <div className="pt-10">
+          <h2 className="font-steelfish text-[100px] text-[#d57187] pl-4 pb-4">
+            Biljetter <p className="inline text-5xl pl-6">🎟️</p>
+          </h2>
+          {/* <div className={styles.mediaScroller}>
+            {posts.map((post) => (
+              <EventCard id={post.id} post={post} />
+            ))}
+          </div> */}
+          <div className={styles.mediaScroller}>
+            {data.map((event) => (
+              <EventCard key={event.eventId} id={event.eventId} event={event} />
+            ))}
+          </div>
         </div>
       </main>
     </div>
