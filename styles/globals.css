@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Appareo";
+    src: url("/fonts/Appareo-Black.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "Steelfish";
+    src: url("/fonts/Steelfish-Bold.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }
+}
