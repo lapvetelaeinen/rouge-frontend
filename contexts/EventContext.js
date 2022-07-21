@@ -11,9 +11,11 @@ function EventProvider({ children }) {
     setEvents(data);
   }
 
-  function getEvent(eventId) {
-    const found = events.find((element) => element.eventId == eventId);
-    return found;
+  async function getEvent(eventId) {
+    const response = await fetch("/api/events");
+    const data = await response.json();
+    // const found = awaitdata.find((element) => element == eventId);
+    return data;
   }
 
   return (

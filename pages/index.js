@@ -51,7 +51,7 @@ export default function Home() {
 
           <Calendar />
         </div>
-        <div className="pt-10">
+        <div className="pt-10" onClick={() => console.log(events)}>
           <h2 className="font-steelfish text-[100px] text-[#d57187] pl-4 pb-4">
             Biljetter <p className="inline text-5xl pl-6">🎟️</p>
           </h2>
