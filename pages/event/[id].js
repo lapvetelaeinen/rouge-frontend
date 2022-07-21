@@ -11,10 +11,18 @@ export default function EventPage({ data }) {
   const passedID = router.query.id;
   const [showModal, setShowModal] = useState(false);
 
+  const [value, setValue] = useState("fruit");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   const thisEvent = data.find((event) => event.eventId == passedID);
 
   const BUCKET_URL = "https://rouge-event-images.s3.eu-west-2.amazonaws.com/";
   const imagePath = BUCKET_URL + thisEvent.image;
+
+  console.log(thisEvent.tickets);
 
   return (
     <div className="min-h-screen bg-neutral-800 relative">
@@ -31,6 +39,18 @@ export default function EventPage({ data }) {
                     fill="#f57971"
                     onClick={() => setShowModal(!showModal)}
                   />
+                </div>
+                <div>
+                  <label>
+                    Biljettklass
+                    <select value={value} onChange={handleChange}>
+                      {thisEvent.tickets.map((ticket) => (
+                        <option key={ticket.class} value={ticket.class}>
+                          {ticket.class}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
                 </div>
               </div>
             </div>
@@ -64,7 +84,7 @@ export default function EventPage({ data }) {
           className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full fixed bottom-0 h-20 text-3xl font-steelfish text-neutral-800"
           onClick={() => setShowModal(!showModal)}
         >
-          KÖP BILJETT FRÅN 199 SEK
+          KÖP BILJETT FRÅN {thisEvent.tickets[0].price} SEK
         </button>
       </div>
     </div>
