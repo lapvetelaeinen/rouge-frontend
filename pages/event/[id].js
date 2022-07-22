@@ -99,7 +99,7 @@ export const getStaticPaths = async () => {
     params: { id: event.eventId },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 };
 
 export async function getStaticProps({ params }) {
