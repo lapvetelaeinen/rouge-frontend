@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       .json({ error: "Invalid HTTP method. Only POST requests are allowed." });
   }
 
-  if (req.query.secret !== process.env.REVALIDATE_SECRET) {
+  if (req.query.secret !== "gkmn12714") {
     return res.status(401).json({ message: "Invalid token" });
   }
 
