@@ -20,19 +20,17 @@ export default function EventPage({ data }) {
   const [payMethod, setPayMethod] = useState(null);
 
   const onSubmit = () => {
-    if (!payMethod) {
-      setPayError("*Välj betalsätt för att gå vidare.");
-    } else {
-      setPayError(null);
-    }
     if (!validateEmail(email)) {
       setEmailError("*Ange en giltig email");
+      return;
     } else {
       setEmailError(null);
     }
-
-    if (payError || emailError) {
+    if (!payMethod) {
+      setPayError("*Välj betalsätt för att gå vidare.");
       return;
+    } else {
+      setPayError(null);
     }
 
     const order = {
@@ -79,8 +77,6 @@ export default function EventPage({ data }) {
 
   const BUCKET_URL = "https://rouge-event-images.s3.eu-west-2.amazonaws.com/";
   const imagePath = BUCKET_URL + thisEvent.image;
-
-  console.log(thisEvent.tickets);
 
   return (
     <div className="min-h-screen bg-neutral-800 relative">
