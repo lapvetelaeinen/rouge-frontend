@@ -1,7 +1,7 @@
 function Footer() {
   return (
-    <footer>
-      <h1 className="text-2xl text-red-400">Footer</h1>
+    <footer className="bg-neutral-800">
+      <p className="text-neutral-900">Powered by Norddev</p>
     </footer>
   );
 }

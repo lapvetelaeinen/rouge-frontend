@@ -64,7 +64,7 @@ function EventCard({ event }) {
         {event.title}
       </h2>
       <p className="font-appareo text-center pt-2 pb-4 text-neutral-600">
-        {event.date}
+        {event.date.substring(0, 10)}
       </p>
     </div>
   );

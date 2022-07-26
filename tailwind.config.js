@@ -27,6 +27,10 @@ module.exports = {
           },
         },
       },
+      backgroundImage: {
+        swish: "url('../assets/img/swish.png')",
+        visa: "url('../assets/img/visa.png')",
+      },
     },
   },
   plugins: [],

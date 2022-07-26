@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
-import { EventContext } from "../../contexts/EventContext";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Image from "next/image";
-import useSWR from "swr";
-import axios from "axios";
 import Times from "../../components/svg/Times";
 
 export default function EventPage({ data }) {
@@ -11,8 +9,44 @@ export default function EventPage({ data }) {
   const passedID = router.query.id;
   const [showModal, setShowModal] = useState(false);
 
+  const [payError, setPayError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [email, setEmail] = useState("");
   const [value, setValue] = useState("");
   const [price, setPrice] = useState("");
+  const [ticketClass, setTicketClass] = useState("");
+
+  const [quantity, setQuantity] = useState(1);
+  const [payMethod, setPayMethod] = useState(null);
+
+  const onSubmit = () => {
+    if (!payMethod) {
+      setPayError("*Välj betalsätt för att gå vidare.");
+    } else {
+      setPayError(null);
+    }
+    if (!validateEmail(email)) {
+      setEmailError("*Ange en giltig email");
+    } else {
+      setEmailError(null);
+    }
+
+    if (payError || emailError) {
+      return;
+    }
+
+    const order = {
+      event: thisEvent.title,
+      eventId: thisEvent.eventId,
+      ticketClass: ticketClass,
+      quantity: quantity,
+      totalPrice: quantity * price,
+      paymentMethod: payMethod,
+      email: email,
+    };
+
+    console.log(order);
+  };
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -24,8 +58,22 @@ export default function EventPage({ data }) {
 
   const openModal = () => {
     setPrice(thisEvent.tickets[0].price);
+    setTicketClass(thisEvent.tickets[0].class);
     setShowModal(!showModal);
   };
+
+  const paymentClick = (e) => {
+    if (payMethod !== e.currentTarget.id) {
+      setPayMethod(e.currentTarget.id);
+    } else {
+      setPayMethod("");
+    }
+  };
+
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
 
   const thisEvent = data.find((event) => event.eventId == passedID);
 
@@ -63,8 +111,8 @@ export default function EventPage({ data }) {
                     <p>{thisEvent.date.substring(0, 10)}</p>
                   </div>
                 </div>
-                <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md">
-                  <div className="flex text-xl ">
+                <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
+                  <div className="flex text-xl">
                     <p className="text-neutral-700">Biljettklass:</p>
                     <select
                       value={value}
@@ -77,26 +125,77 @@ export default function EventPage({ data }) {
                         </option>
                       ))}
                     </select>
+                    <input
+                      type="number"
+                      className="ml-2 bg-neutral-200 rounded-md text-neutral-500 shadow-sm w-[30px] text-center"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                    />
                   </div>
-                  <div className=" flex pt-4 text-xl text-neutral-700">
+
+                  <div className=" flex pt-4 text-3xl text-neutral-700 justify-center font-bold">
                     <p>Pris:</p>
-                    <p className="pl-2">{price} SEK</p>
+                    <p className="pl-2">{price * quantity} SEK</p>
+                  </div>
+                </div>
+                <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
+                  <div className="flex flex-col text-xl">
+                    <p className="text-neutral-700">
+                      Vart ska vi skicka dina biljetter?
+                    </p>
+                    <input
+                      type="email"
+                      className="mt-4 bg-neutral-200 rounded-md text-neutral-500 shadow-sm"
+                      placeholder="partyqueen@gmail.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    {emailError ? (
+                      <p className="text-sm pt-2 text-red-500">{emailError}</p>
+                    ) : null}
                   </div>
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md">
-                  <div className="flex text-xl text-neutral-700">
-                    <p>Viktig info!</p>
+                  <div className="flex flex-col text-xl text-neutral-700">
+                    <p>Välj betalsätt</p>
                   </div>
-                  <div className=" flex pt-4 text-xl">
-                    <p className="text-base text-neutral-500">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Proin sit amet augue vehicula, malesuada enim et, vehicula
-                      enim. Morbi quis faucibus orci.
-                    </p>
+                  <div className="pt-4 flex justify-between items-center gap-4">
+                    {payMethod == "swish" ? (
+                      <div
+                        id="swish"
+                        className="border-4 border-violet-400 bg-neutral-200 bg-swish h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
+                        onClick={(e) => paymentClick(e)}
+                      ></div>
+                    ) : (
+                      <div
+                        id="swish"
+                        className="bg-neutral-200 bg-swish h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
+                        onClick={(e) => paymentClick(e)}
+                      ></div>
+                    )}
+                    {payMethod == "stripe" ? (
+                      <div
+                        id="stripe"
+                        className="border-4 border-violer-400 bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
+                        onClick={(e) => paymentClick(e)}
+                      ></div>
+                    ) : (
+                      <div
+                        id="stripe"
+                        className="bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
+                        onClick={(e) => paymentClick(e)}
+                      ></div>
+                    )}
                   </div>
+                  {payError ? (
+                    <p className="text-sm pt-2 text-red-500">{payError}</p>
+                  ) : null}
                 </div>
                 <div className="mx-5">
-                  <button className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full  text-4xl font-steelfish text-neutral-800 rounded-lg py-6 shadow-lg">
+                  <button
+                    className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full  text-4xl font-steelfish text-neutral-800 rounded-lg py-6 shadow-lg"
+                    onClick={() => onSubmit()}
+                  >
                     KÖP
                   </button>
                 </div>
@@ -126,7 +225,7 @@ export default function EventPage({ data }) {
         </h1>
 
         <p className="pl-2 pt-2 font-appareo text-xl text-neutral-400">
-          {thisEvent.date}
+          {thisEvent.date.substring(0, 10)}
         </p>
 
         <p className="pl-2 pt-2 text-2xl text-neutral-300">
