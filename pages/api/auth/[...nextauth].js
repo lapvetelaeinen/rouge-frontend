@@ -1,4 +1,6 @@
 import NextAuth from "next-auth";
+
+import { createTransport } from "nodemailer";
 import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
@@ -7,7 +9,6 @@ export default NextAuth({
   // Configure one or more authentication providers
   providers: [
     EmailProvider({
-      name: "example.com",
       server: {
         host: "smtp.sendgrid.net",
         port: 587,
