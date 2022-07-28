@@ -10,11 +10,11 @@ export default NextAuth({
   providers: [
     EmailProvider({
       server: {
-        host: "smtp.sendgrid.net",
+        host: "smtp.mailgun.org",
         port: 587,
         auth: {
-          user: "apikey",
-          pass: "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",
+          user: "postmaster@sandboxdade1da5314244b5ae2757b82f4e874e.mailgun.org",
+          pass: "69a9f034f1f594f0440e234a85c9e48d-835621cf-b8eb305b",
         },
       },
       from: "filip.lapvetelainen@gmail.com",
