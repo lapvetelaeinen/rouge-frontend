@@ -7,6 +7,7 @@ export default NextAuth({
   // Configure one or more authentication providers
   providers: [
     EmailProvider({
+      name: "example.com",
       server: {
         host: "smtp.sendgrid.net",
         port: 587,
