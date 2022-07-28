@@ -8,10 +8,14 @@ import styles from "../styles/Home.module.css";
 import useSWR from "swr";
 import axios from "axios";
 import EventCard from "../components/EventCard";
+import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export default function Home() {
+  // const { session, loading } = useSession();
+  const { data: session, status } = useSession();
   // see if possible to save events in context
   const { events, saveEvents } = useContext(EventContext);
   const { data, error } = useSWR("/api/events", fetcher);
@@ -23,6 +27,8 @@ export default function Home() {
 
   saveEvents(data);
 
+  console.log("THIS IS THE STATUS: ", status);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -32,6 +38,20 @@ export default function Home() {
       </Head>
 
       <main className="bg-neutral-800 min-h-[100vh]">
+        {/* {!session && (
+          <>
+            <h1>You are not signed in</h1>
+            <button onClick={signIn}>Sign in</button>
+          </>
+        )}
+
+        {session && (
+          <>
+            <h1>Hello {session.user.email}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </>
+        )} */}
+
         <div className="relative w-full h-full">
           <div className="absolute bg-neutral-800 bg-opacity-50 w-full h-full flex justify-center items-center text-violet-300 text-[60px] font-steelfish text-center">
             <h1>

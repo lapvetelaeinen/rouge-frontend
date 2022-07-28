@@ -37,7 +37,12 @@ function MobileNav() {
           <div className="absolute bg-[url('../assets/img/gradient.png')] w-[58px] h-full text-center animate-blob" />
           <PyramidMask width="60px" height="100%" className="relative" />
         </div>
-        <Ticket fill="url('#myGradient')" width="35px" height="35px" />
+        <Ticket
+          fill="url('#myGradient')"
+          width="35px"
+          height="35px"
+          onClick={() => router.push("/user/tickets")}
+        />
       </div>
       {isOpen ? (
         <div className="bg-neutral-900 h-[100vh]">
