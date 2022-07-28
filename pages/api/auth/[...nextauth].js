@@ -9,7 +9,7 @@ export default NextAuth({
     EmailProvider({
       server: {
         host: "smtp.sendgrid.net",
-        port: "587",
+        port: 587,
         auth: {
           user: "apikey",
           pass: "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",
