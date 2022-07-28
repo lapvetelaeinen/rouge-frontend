@@ -18,7 +18,7 @@ export default function Page() {
 
   return (
     <>
-      <h1>Protected Page</h1>
+      <h1>Dina biljetter</h1>
       <p>You can view this page because you are signed in.</p>
       <button onClick={() => signOut()}>Logga ut</button>
     </>
