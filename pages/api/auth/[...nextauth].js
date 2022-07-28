@@ -20,4 +20,5 @@ export default NextAuth({
   ],
   adapter: MongoDBAdapter(clientPromise),
   database: process.env.DATABASE_URL,
+  secret: "ashudasd",
 });
