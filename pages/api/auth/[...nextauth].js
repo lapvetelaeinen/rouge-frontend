@@ -7,17 +7,18 @@ import clientPromise from "../../../lib/mongodb";
 
 export default NextAuth({
   // Configure one or more authentication providers
+  site: "https://rouge-frontend.vercel.app/",
   providers: [
     EmailProvider({
       server: {
-        host: "smtp.mailgun.org",
+        host: "smtp.sendgrid.net",
         port: 587,
         auth: {
-          user: "postmaster@sandboxdade1da5314244b5ae2757b82f4e874e.mailgun.org",
-          pass: "69a9f034f1f594f0440e234a85c9e48d-835621cf-b8eb305b",
+          user: "apikey",
+          pass: "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",
         },
       },
-      from: "postmaster@sandboxdade1da5314244b5ae2757b82f4e874e.mailgun.org",
+      from: "filip.lapvetelainen@gmail.com",
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
