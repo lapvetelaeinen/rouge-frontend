@@ -11,5 +11,6 @@ export default async function handler(req, res) {
         mess: req.body.event, // This is the body part
       },
     });
+    res.status(200).send("hello");
   }
 }
