@@ -7,7 +7,6 @@ import clientPromise from "../../../lib/mongodb";
 
 export default NextAuth({
   // Configure one or more authentication providers
-  site: "https://rouge-frontend.vercel.app/",
   providers: [
     EmailProvider({
       server: {

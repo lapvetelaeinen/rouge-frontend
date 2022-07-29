@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import Image from "next/image";
 import Times from "../../components/svg/Times";
 
@@ -18,6 +19,10 @@ export default function EventPage({ data }) {
 
   const [quantity, setQuantity] = useState(1);
   const [payMethod, setPayMethod] = useState(null);
+
+  const createOrder = async (params) => {
+    await axios.post("/api/create-order", params);
+  };
 
   const onSubmit = () => {
     if (!validateEmail(email)) {
@@ -44,6 +49,13 @@ export default function EventPage({ data }) {
     };
 
     console.log(order);
+
+    const orderDetails = {
+      order,
+    };
+
+    // api call here
+    createOrder(order);
   };
 
   const handleChange = (event) => {
