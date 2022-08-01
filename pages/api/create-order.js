@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       headers: {},
       data: {
         recipent: req.body.email,
-        mess: req.body.event, // This is the body part
+        mess: req.body.eventName, // This is the body part
       },
     });
     res.status(200).send("hello");

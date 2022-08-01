@@ -59,7 +59,7 @@ export default function EventPage({ data }) {
     };
 
     // api call here
-    createOrder(order);
+    // createOrder(order);
 
     // if(payMethod === "swish") {
     //   await createSwishPaymentRequest(order)
