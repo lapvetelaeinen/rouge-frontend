@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Image from "next/image";
 import Times from "../../components/svg/Times";
+// import { createSwishPaymentRequest } from "../../actions/eventActions"
+import StripePayment from "../../components/payment/stripe";
 
 export default function EventPage({ data }) {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function EventPage({ data }) {
   const [value, setValue] = useState("");
   const [price, setPrice] = useState("");
   const [ticketClass, setTicketClass] = useState("");
+  const [orderDetail, setOrderDetail] = useState();
 
   const [quantity, setQuantity] = useState(1);
   const [payMethod, setPayMethod] = useState(null);
@@ -24,7 +27,7 @@ export default function EventPage({ data }) {
     await axios.post("/api/create-order", params);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!validateEmail(email)) {
       setEmailError("*Ange en giltig email");
       return;
@@ -47,6 +50,7 @@ export default function EventPage({ data }) {
       paymentMethod: payMethod,
       email: email,
     };
+    console.log(">>>order>>>", order);
 
     console.log(order);
 
@@ -56,6 +60,15 @@ export default function EventPage({ data }) {
 
     // api call here
     createOrder(order);
+
+    // if(payMethod === "swish") {
+    //   await createSwishPaymentRequest(order)
+    //   return
+    // }
+
+    if (payMethod === "stripe") {
+      setOrderDetail(order);
+    }
   };
 
   const handleChange = (event) => {
@@ -85,6 +98,11 @@ export default function EventPage({ data }) {
     return re.test(email);
   }
 
+  const handleCancel = () => {
+    console.log("Cencel Payment");
+    setOrderDetail(null);
+  };
+
   const thisEvent = data.find((event) => event.eventId == passedID);
 
   const BUCKET_URL = "https://rouge-event-images.s3.eu-west-2.amazonaws.com/";
@@ -93,6 +111,12 @@ export default function EventPage({ data }) {
   return (
     <div className="min-h-screen bg-neutral-800 relative">
       <div className="">
+        {orderDetail && orderDetail.eventId ? (
+          <StripePayment order={orderDetail} onCancel={handleCancel} />
+        ) : (
+          ""
+        )}
+
         {showModal ? (
           <div className="bg-neutral-800 absolute z-50 h-full w-full flex justify-center items-start bg-opacity-80">
             <div className="bg-neutral-200 w-full min-h-[700px] m-4 rounded-3xl">
@@ -202,9 +226,9 @@ export default function EventPage({ data }) {
                 <div className="mx-5">
                   <button
                     className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full  text-4xl font-steelfish text-neutral-800 rounded-lg py-6 shadow-lg"
-                    onClick={() => onSubmit()}
+                    onClick={onSubmit}
                   >
-                    KÖP
+                    KÖP-Submit
                   </button>
                 </div>
                 <p className="text-xs text-center pt-4 text-neutral-500">
