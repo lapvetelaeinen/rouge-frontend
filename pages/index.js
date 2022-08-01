@@ -8,15 +8,10 @@ import styles from "../styles/Home.module.css";
 import useSWR from "swr";
 import axios from "axios";
 import EventCard from "../components/EventCard";
-import { getSession } from "next-auth/react";
-import { useSession } from "next-auth/react";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export default function Home() {
-  // const { session, loading } = useSession();
-  const { data: session, status } = useSession();
-  // see if possible to save events in context
   const { events, saveEvents } = useContext(EventContext);
   const { data, error } = useSWR("/api/events", fetcher);
 
