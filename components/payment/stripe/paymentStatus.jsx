@@ -8,7 +8,13 @@ const PaymentStatus = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const createOrder = async (params) => {
-    await axios.post("/api/order-confirmation", params);
+    await axios.post("/api/order-confirmation", params).catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
   };
 
   useEffect(() => {
