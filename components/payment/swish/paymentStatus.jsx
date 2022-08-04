@@ -7,38 +7,41 @@ const PaymentStatus = (props) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
-    const payment_intent_id = props.paymentId ||  new URLSearchParams(window.location.search).get(
-      "payment_intent"
-    );
+    const paymentId = props.paymentId;
 
-    if (!payment_intent_id) {
+    if (!paymentId) {
       setMessage("Not found payment instance");
       setIsLoading(false)
       return;
     }
 
-    fetch('/api/payment/stripe', {
+    fetch('/api/payment/swish', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        type: "checkStatus",
-        payment_intent_id: payment_intent_id
+        type: "getPaymentStatus",
+        paymentId: paymentId
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(">>> Payment status", data)
-        setPaymentMeta(data.metadata)
-        data
-        switch (data.paymentStatus) {
-          case "succeeded":
+        setPaymentMeta(data)
+        switch (data.status) {
+          case "CREATED":
+            setMessage("Payment is created not paid yet.");
+            break;
+          case "PAID":
             setMessage("Payment succeeded!");
             break;
-          case "processing":
-            setMessage("Your payment is processing.");
+          case "CANCELLED":
+            setMessage("Your payment cancelled.");
             break;
-          case "requires_payment_method":
-            setMessage("Your payment was not successful, please try again.");
+          case "DECLINED":
+            setMessage("Your payment declined.");
+            break;
+          case "ERROR":
+            setMessage("An error occurred, like the payment was blocked or timed out. See list of error codes for all potential error conditions.");
             break;
           default:
             setMessage("Something went wrong.");
@@ -53,22 +56,19 @@ const PaymentStatus = (props) => {
   }, []);
 
   return (
-    <div id="stripe-payment-status">
+    <div id="swish-payment-status">
       <div>
         {
           isLoading ? <h1 className={styles.paymentStatusMessage}>Loading...</h1> : ''
         }
       </div>
       {
-        paymentMeta && paymentMeta.eventId &&
+        paymentMeta && paymentMeta.id &&
         <div className="flex">
           <ul>
-            <li><b>Email</b>: {paymentMeta.email}</li>
-            <li><b>EventId</b>: {paymentMeta.eventId}</li>
-            <li><b>Event Name</b>: {paymentMeta.eventName}</li>
-            <li><b>Quantity</b>: {paymentMeta.quantity}</li>
-            <li><b>Ticket Class</b>: {paymentMeta.ticketClass}</li>
-            <li><b>Total Price</b>: {paymentMeta.totalPrice}</li>
+            <li><b>Message</b>: {paymentMeta.message}</li>
+            <li><b>Amount</b>: {paymentMeta.amount}</li>
+            <li><b>Status</b>: {paymentMeta.status}</li>
           </ul>
         </div>
       }

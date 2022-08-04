@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Times from "../../components/svg/Times";
-// import { createSwishPaymentRequest } from "../../actions/eventActions"
 import StripePayment from '../../components/payment/stripe'
+import SwishPayment from '../../components/payment/swish'
 
 export default function EventPage({ data }) {
   const router = useRouter();
@@ -47,14 +46,7 @@ export default function EventPage({ data }) {
     };
     console.log(">>>order>>>", order)
 
-    // if(payMethod === "swish") {
-    //   await createSwishPaymentRequest(order)
-    //   return
-    // }
-
-    if(payMethod === "stripe") {
-      setOrderDetail(order)
-    }
+    setOrderDetail(order)
   };
 
   const handleChange = (event) => {
@@ -98,13 +90,21 @@ export default function EventPage({ data }) {
     <div className="min-h-screen bg-neutral-800 relative">
       <div className="">
 
-      {
-        (orderDetail && orderDetail.eventId) ?
-        <StripePayment
-          order={orderDetail}
-          onCancel={handleCancel}
-        /> : ""
-      }
+        {
+          (orderDetail && orderDetail.paymentMethod === "stripe") ?
+            <StripePayment
+              order={orderDetail}
+              onCancel={handleCancel}
+            /> : ""
+        }
+
+        {
+          (orderDetail && orderDetail.paymentMethod === "swish") ?
+            <SwishPayment
+              order={orderDetail}
+              onCancel={handleCancel}
+            /> : ""
+        }
 
         {showModal ? (
           <div className="bg-neutral-800 absolute z-50 h-full w-full flex justify-center items-start bg-opacity-80">
