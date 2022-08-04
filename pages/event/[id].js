@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import Times from "../../components/svg/Times";
 import StripePayment from '../../components/payment/stripe'
@@ -20,6 +21,10 @@ export default function EventPage({ data }) {
 
   const [quantity, setQuantity] = useState(1);
   const [payMethod, setPayMethod] = useState(null);
+
+  const createOrder = async (params) => {
+    await axios.post("/api/create-order", params);
+  };
 
   const onSubmit = async () => {
     if (!validateEmail(email)) {
@@ -77,9 +82,9 @@ export default function EventPage({ data }) {
   }
 
   const handleCancel = () => {
-    console.log('Cencel Payment')
-    setOrderDetail(null)
-  }
+    console.log("Cencel Payment");
+    setOrderDetail(null);
+  };
 
   const thisEvent = data.find((event) => event.eventId == passedID);
 

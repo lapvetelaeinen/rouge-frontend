@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import StripePaymentStatus from '../components/payment/stripe/paymentStatus'
 import SwishPaymentStatus from '../components/payment/swish/paymentStatus'
@@ -6,7 +5,6 @@ import SwishPaymentStatus from '../components/payment/swish/paymentStatus'
 const PaymentStatus = () => {
     const [stripePaymentId, setStripePaymentId] = useState()
     const [swishPaymentId, setSwishPaymentId] = useState()
-    const router = useRouter();
 
     useEffect(() => {
         const url = new URLSearchParams(window.location.search)

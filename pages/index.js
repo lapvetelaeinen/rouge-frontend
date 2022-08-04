@@ -12,7 +12,6 @@ import EventCard from "../components/EventCard";
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export default function Home() {
-  // see if possible to save events in context
   const { events, saveEvents } = useContext(EventContext);
   const { data, error } = useSWR("/api/events", fetcher);
 
@@ -23,6 +22,17 @@ export default function Home() {
 
   saveEvents(data);
 
+  console.log("THIS IS THE STATUS: ", status);
+
+  function getPDF() {
+    return axios.get("/api/pdf", {
+      responseType: "arraybuffer",
+      headers: {
+        Accept: "application/pdf",
+      },
+    });
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -32,6 +42,28 @@ export default function Home() {
       </Head>
 
       <main className="bg-neutral-800 min-h-[100vh]">
+        {/* {!session && (
+          <>
+            <h1>You are not signed in</h1>
+            <button onClick={signIn}>Sign in</button>
+          </>
+        )}
+
+        {session && (
+          <>
+            <h1>Hello {session.user.email}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </>
+        )} */}
+        <Image
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAYAAAB1PADUAAAAAklEQVR4AewaftIAAATnSURBVO3BQY4cSRIEQdNA/f/Lun30UwCJ9GpyuCaCP1K15KRq0UnVopOqRSdVi06qFp1ULTqpWnRSteikatFJ1aKTqkUnVYtOqhadVC06qVr0yUtAfpOaJ4DcqJmATGomIJOaGyBPqJmA/CY1b5xULTqpWnRSteiTZWo2AXkCyI2aCcgNkBsgk5pJzQ2QJ9RsArLppGrRSdWik6pFn3wZkCfUPAHkRs2NmgnIpGYC8gSQbwLyhJpvOqladFK16KRq0Sf/54BMaiYgN2omIDdqJiD/kpOqRSdVi06qFn3yjwMyqZnU3Ki5AfIEkEnNv+SkatFJ1aKTqkWffJmavwmQGzU3QCY1bwCZ1Dyh5m9yUrXopGrRSdWiT5YB+ZPUTEAmNROQGyCTmgnIpGYCMql5A8jf7KRq0UnVopOqRZ+8pOZvpuZPUjMBmdTcqPkvOaladFK16KRqEf7IC0AmNROQTWr+JCBvqJmATGomIJvUfNNJ1aKTqkUnVYs+WQbkCTUTkEnNBORGzQRkUnMD5EbNG0AmNROQN9Q8AWRS88ZJ1aKTqkUnVYs+WaZmAnIDZFIzAdkEZFLzBJBJzQRkUjOpmYBMap4AMgGZ1ExAJjWbTqoWnVQtOqlahD/yApAbNU8AmdRMQJ5QMwF5Qs1vAnKjZgJyo+YGyKTmjZOqRSdVi06qFn3yy4A8AWRS84aaCcikZgKySc0TaiYgk5obIDdqNp1ULTqpWnRStQh/5AUgk5oJyKTmDSBPqJmATGp+E5A31ExAbtRMQG7UvHFSteikatFJ1SL8kb8YkBs1E5A31NwAuVHzBJBJzQRkUjMBuVHzm06qFp1ULTqpWvTJlwF5Qs2kZgIyAZnU3ACZ1NwAmdT8JjWbgExqNp1ULTqpWnRSteiTX6bmCSCTmhsgk5obIJOaSc0EZFIzAZnUTEAmNROQSc0EZFJzA2RS800nVYtOqhadVC365CUgk5obIE+omYBMam6ATGomIBOQGzUTkEnNBOQJNROQSc0E5EbNDZBJzRsnVYtOqhadVC3CH3kByKTmBsik5gbIpGYCMqmZgNyomYA8oeYNIJOaGyBPqJmATGo2nVQtOqladFK16JMvA3ID5EbNjZoJyKRmAvKEmgnINwGZ1ExqJiCTmhs133RSteikatFJ1aJPfpmaCcikZgJyo+YGyBNqJiA3QG7UvAHkCSA3ar7ppGrRSdWik6pF+CP/YUBu1PxJQJ5Q8wSQSc0TQCY1b5xULTqpWnRSteiTl4D8JjWTmhsgk5oJyKTmBshvAjKpuQEyqZmATGo2nVQtOqladFK16JNlajYBuQEyqZnUvAFkUrMJyI2a/5KTqkUnVYtOqhZ98mVAnlDzBpAbNZOaGzUTkCfUPAHkDTUTkEnNN51ULTqpWnRSteiT/3NAJjUTkEnNE0AmNZOaCcikZgIyqZmATGomIDdq3jipWnRSteikatEn/zg1N2omIJOaCcgTap5QMwGZ1ExA3lCz6aRq0UnVopOqRZ98mZpvUnMDZFLzhpongLyhZgJyo+ZPOqladFK16KRq0SfLgPwmIJOaGyCTmhsgN2omIJOab1JzA2RS800nVYtOqhadVC3CH6laclK16KRq0UnVopOqRSdVi06qFp1ULTqpWnRSteikatFJ1aKTqkUnVYtOqhadVC36H8tnVSbseDWkAAAAAElFTkSuQmCC"
+          width={500}
+          height={500}
+          alt=""
+        />
+
+        <button onClick={getPDF}>save pdf</button>
+
         <div className="relative w-full h-full">
           <div className="absolute bg-neutral-800 bg-opacity-50 w-full h-full flex justify-center items-center text-violet-300 text-[60px] font-steelfish text-center">
             <h1>
