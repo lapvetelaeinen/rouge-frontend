@@ -8,7 +8,7 @@ const PaymentStatus = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const createOrder = async (params) => {
-    await axios.post("/api/create-order", params);
+    await axios.post("/api/order-confirmation", params);
   };
 
   useEffect(() => {

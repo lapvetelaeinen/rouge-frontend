@@ -24,6 +24,15 @@ export default function Home() {
 
   console.log("THIS IS THE STATUS: ", status);
 
+  function getPDF() {
+    return axios.get("/api/pdf", {
+      responseType: "arraybuffer",
+      headers: {
+        Accept: "application/pdf",
+      },
+    });
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -52,6 +61,8 @@ export default function Home() {
           height={500}
           alt=""
         />
+
+        <button onClick={getPDF}>save pdf</button>
 
         <div className="relative w-full h-full">
           <div className="absolute bg-neutral-800 bg-opacity-50 w-full h-full flex justify-center items-center text-violet-300 text-[60px] font-steelfish text-center">
