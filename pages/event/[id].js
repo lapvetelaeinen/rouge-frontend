@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import axios from "axios";
 import Image from "next/image";
 import Times from "../../components/svg/Times";
@@ -50,9 +49,7 @@ export default function EventPage({ data }) {
       paymentMethod: payMethod,
       email: email,
     };
-    console.log(">>>order>>>", order);
-
-    console.log(order);
+    console.log(">>>order>>>", order)
 
     const orderDetails = {
       order,
@@ -109,7 +106,8 @@ export default function EventPage({ data }) {
   return (
     <div className="min-h-screen bg-neutral-800 relative">
       <div className="">
-      {
+
+        {
           (orderDetail && orderDetail.paymentMethod === "stripe") ?
             <StripePayment
               order={orderDetail}
