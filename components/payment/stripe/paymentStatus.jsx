@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import styles from "../../../styles/stripe.module.css";
+import styles from '../../../styles/payment.module.css'
 
-const PaymentStatus = () => {
+const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
   const [paymentMeta, setPaymentMeta] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -18,7 +18,7 @@ const PaymentStatus = () => {
   };
 
   useEffect(() => {
-    const payment_intent_id = new URLSearchParams(window.location.search).get(
+    const payment_intent_id = props.paymentId ||  new URLSearchParams(window.location.search).get(
       "payment_intent"
     );
 
@@ -56,19 +56,19 @@ const PaymentStatus = () => {
             setMessage("Something went wrong.");
             break;
         }
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setMessage("Something went wrong.");
-        setIsLoading(false);
+        return true;
+      }).catch(error => {
+        setMessage(error.message || "Something went wrong.");
+        return false;
       });
+      setIsLoading(false)
   }, []);
 
   return (
     <div id="stripe-payment-status">
       <div>
         {isLoading ? (
-          <h1 className={styles.stripePaymentStatusMessage}>Loading...</h1>
+          <h1 className={styles.paymentStatusMessage}>Loading...</h1>
         ) : (
           ""
         )}
@@ -101,7 +101,7 @@ const PaymentStatus = () => {
       {/* Show any error or success messages */}
       {message && !isLoading && (
         <div>
-          <h1 className={styles.stripePaymentStatusMessage}>
+          <h1 className={styles.paymentStatusMessage}>
             Status: {message}
           </h1>
         </div>
