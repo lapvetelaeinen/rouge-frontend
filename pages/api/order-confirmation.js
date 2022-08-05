@@ -76,7 +76,7 @@ export default async function handler(req, res) {
       headers: {},
       data: JSON.stringify({
         recipent: "filip.lapvetelainen@gmail.com",
-        eventId: req.body.eventId,
+        ticketId: ticketId,
         eventName: req.body.eventName,
       }),
     });
