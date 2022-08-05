@@ -45,39 +45,39 @@ export default async function handler(req, res) {
       },
     });
 
-    const QR = await QRCode.toDataURL(ticketId);
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.setContent(`<html>
-  <head>
-    <style>
-      html {height: 100%;}
-      body {background-color: powderblue; height: 100%;} h1 {color: blue;} p {color: red;}
-      .image-box {width: 100vw; height: 100%; display: flex; justify-content: center; align-items: center;}
-      img {width: 80%;}
-    </style>
-  </head>
-  <body>
-<div class="image-box"><img src="${QR}"></img></div>
+    //     const QR = await QRCode.toDataURL(ticketId);
+    //     const browser = await puppeteer.launch();
+    //     const page = await browser.newPage();
+    //     await page.setContent(`<html>
+    //   <head>
+    //     <style>
+    //       html {height: 100%;}
+    //       body {background-color: powderblue; height: 100%;} h1 {color: blue;} p {color: red;}
+    //       .image-box {width: 100vw; height: 100%; display: flex; justify-content: center; align-items: center;}
+    //       img {width: 80%;}
+    //     </style>
+    //   </head>
+    //   <body>
+    // <div class="image-box"><img src="${QR}"></img></div>
 
-  </body>
-</html>`);
-    await page.emulateMediaType("screen");
-    const pdf = await page.pdf({
-      format: "A4",
-      printBackground: true,
-    });
+    //   </body>
+    // </html>`);
+    //     await page.emulateMediaType("screen");
+    //     const pdf = await page.pdf({
+    //       format: "A4",
+    //       printBackground: true,
+    //     });
 
-    await browser.close();
+    //     await browser.close();
 
     await axios({
       method: "post",
-      url: "https://th4yhng7zg.execute-api.eu-west-2.amazonaws.com/order/ordr",
+      url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
       headers: {},
       data: JSON.stringify({
         recipent: "filip.lapvetelainen@gmail.com",
         eventId: req.body.eventId,
-        pdf: pdf.toString("base64"),
+        eventName: req.body.eventName,
       }),
     });
     res.status(200).send("hello");
