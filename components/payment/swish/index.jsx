@@ -25,6 +25,7 @@ const SwishPayment = (props) => {
         if (token && paymentId) {
             const origin = window.location.origin || 'http://localhost:3000'
             const callbackUrl = `${origin}/payment-status?swish_pay_id=${paymentId}`;
+            console.log(">> Check payment status Link: ", callbackUrl)
             const appUrl = `swish://paymentrequest?token=${token}&callbackurl=${callbackUrl}`;
             payLink = appUrl
         }
@@ -87,7 +88,7 @@ const SwishPayment = (props) => {
                 setLoader(false);
                 return false;
             });
-
+            console.log(">>result> SIWSH: ", result)
         if (result && result.token) {
             setToken(result.token)
             setPaymentId(result.id)

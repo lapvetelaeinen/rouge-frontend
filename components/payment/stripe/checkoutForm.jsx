@@ -4,7 +4,7 @@ import {
     useStripe,
     useElements,
 } from '@stripe/react-stripe-js';
-import styles from '../../../styles/stripe.module.css'
+import styles from '../../../styles/payment.module.css'
 
 const CheckoutForm = () => {
     const [message, setMessage] = useState(null);
