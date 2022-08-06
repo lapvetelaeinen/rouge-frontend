@@ -88,11 +88,16 @@ const SwishPayment = (props) => {
                 setLoader(false);
                 return false;
             });
-            console.log(">>result> SIWSH: ", result)
+        console.log(">>result> SIWSH: ", result)
         if (result && result.token) {
             setToken(result.token)
             setPaymentId(result.id)
+            return;
         }
+        if (result.message) {
+            setError(result.message)
+        }
+        setLoader(false);
     }
 
     useEffect(() => {

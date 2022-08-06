@@ -21,7 +21,6 @@ const testConfig = {
   ca: path.resolve(ROOT_PATH, "ssl/Swish_TLS_RootCA.pem"),
   passphrase: "swish",
 };
-
 const prodConfig = {
   payeeAlias: process.env.SWISH_PAYEE_ALIAS || "",
   currency: "SEK",
@@ -30,7 +29,7 @@ const prodConfig = {
   qrHost: "https://mpc.getswish.net/qrg-swish",
   cert: path.resolve(ROOT_PATH, "ssl/prod.pem"),
   key: path.resolve(ROOT_PATH, "ssl/prod.key"),
-  passphrase: process.env.SWISH_SSL_PASSPHRASE || null,
+  passphrase: process.env.SWISH_SSL_PASSPHRASE === "null" ? null : process.env.SWISH_SSL_PASSPHRASE
 };
 console.log("> App run on ", process.env.NODE_ENV, " mode.");
 export const config =
@@ -68,8 +67,13 @@ export const createPayment = async (data) => {
   });
 
   if (response.status === 201) {
-    const paymentLink = response.headers.get("location");
-    return await getPaymentDetails(paymentLink);
+    const paymentLink = response.headers.get("location") || response.headers["location"];
+    const token = response.headers.get("paymentrequesttoken") || response.headers["paymentrequesttoken"]
+    const result = await getPaymentDetails(paymentLink);
+    return {
+      token,
+      ...result
+    }
   }
 
   // Error handling known & unknown
