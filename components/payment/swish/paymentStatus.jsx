@@ -43,6 +43,9 @@ const PaymentStatus = (props) => {
           case "ERROR":
             setMessage("An error occurred, like the payment was blocked or timed out. See list of error codes for all potential error conditions.");
             break;
+          case "fail":
+            setMessage(data.message);
+            break;
           default:
             setMessage("Something went wrong.");
             break;
