@@ -48,8 +48,7 @@ const handler = async (req, res) => {
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
-      res.status(500).send("some kind of error");
-      // res.status(500).json({ statusCode: 500, message: errorMessage });
+      res.status(500).json({ statusCode: 500, message: errorMessage });
       return;
     }
   }
@@ -82,8 +81,7 @@ const handler = async (req, res) => {
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
-      res.status(500).send("some kind of error");
-      // res.status(500).json({ statusCode: 500, message: errorMessage });
+      res.status(500).json({ statusCode: 500, message: errorMessage });
       return;
     }
   }
@@ -116,8 +114,7 @@ const handler = async (req, res) => {
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
-      res.status(500).send("some kind of error");
-      // res.status(500).json({ statusCode: 500, message: errorMessage });
+      res.status(500).json({ statusCode: 500, message: errorMessage });
       return;
     }
   }
