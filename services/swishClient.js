@@ -24,7 +24,7 @@ const testConfig = {
 const prodConfig = {
   payeeAlias: process.env.SWISH_PAYEE_ALIAS || "",
   currency: "SEK",
-  callbackUrl: "https://localhost:3000/payment-status",
+  callbackUrl: "https://rouge-frontend.vercel.app/payment-status",
   host: "https://cpc.getswish.net/swish-cpcapi",
   qrHost: "https://mpc.getswish.net/qrg-swish",
   cert: path.resolve(ROOT_PATH, "ssl/prod.pem"),
