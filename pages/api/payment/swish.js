@@ -1,4 +1,9 @@
-import { config, createPayment, getQrCode, getPaymentDetails } from '../../../services/swishClient'
+import {
+  config,
+  createPayment,
+  getQrCode,
+  getPaymentDetails,
+} from "../../../services/swishClient";
 
 const handler = async (req, res) => {
   if (req.method !== "POST") {
@@ -25,7 +30,7 @@ const handler = async (req, res) => {
 
       if (result && result.id && !result.errorMessage) {
         // store this token after that will not able to find
-        const token = result.token || result.paymentReference
+        const token = result.token || result.paymentReference;
         res.status(200).send({
           status: "success",
           id: result.id,
@@ -43,7 +48,8 @@ const handler = async (req, res) => {
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
-      res.status(500).json({ statusCode: 500, message: errorMessage });
+      res.status(500).send("some kind of error");
+      // res.status(500).json({ statusCode: 500, message: errorMessage });
       return;
     }
   }
@@ -76,7 +82,8 @@ const handler = async (req, res) => {
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
-      res.status(500).json({ statusCode: 500, message: errorMessage });
+      res.status(500).send("some kind of error");
+      // res.status(500).json({ statusCode: 500, message: errorMessage });
       return;
     }
   }
@@ -109,7 +116,8 @@ const handler = async (req, res) => {
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
-      res.status(500).json({ statusCode: 500, message: errorMessage });
+      res.status(500).send("some kind of error");
+      // res.status(500).json({ statusCode: 500, message: errorMessage });
       return;
     }
   }
