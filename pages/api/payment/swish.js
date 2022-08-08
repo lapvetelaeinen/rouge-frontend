@@ -165,6 +165,8 @@ const handler = async (req, res) => {
       });
       return;
     } catch (err) {
+      console.log(">> err type: ", type)
+      console.log(">> err: ", err)
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
       res.status(500).json({ statusCode: 500, message: errorMessage });
@@ -198,6 +200,8 @@ const handler = async (req, res) => {
       });
       return;
     } catch (err) {
+      console.log(">> err type: ", type)
+      console.log(">> err: ", err)
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
       res.status(500).json({ statusCode: 500, message: errorMessage });
@@ -231,6 +235,8 @@ const handler = async (req, res) => {
       });
       return;
     } catch (err) {
+      console.log(">> err type: ", type)
+      console.log(">> err: ", err)
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
       res.status(500).json({ statusCode: 500, message: errorMessage });
