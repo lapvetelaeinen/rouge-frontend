@@ -11,7 +11,7 @@ import path from "path";
 import https from "https";
 import fetch from "node-fetch";
 
-const ROOT_PATH = process.env.ROOT_PATH;
+const ROOT_PATH = process.cwd();
 const testConfig = {
   payeeAlias: "1231181189",
   currency: "SEK",
