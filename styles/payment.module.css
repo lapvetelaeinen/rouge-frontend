@@ -57,6 +57,7 @@
 .paymentImgWrapper {
     position: relative;
     padding: 20px;
+    padding-bottom: 10px;
     display: flex;
     justify-content: center;
 }
@@ -83,15 +84,31 @@
 .paymentLink {
     background: #1646b3;
     padding: 10px 30px;
+    margin: auto;
     margin-top: 10px;
     display: block;
     color: #fff;
     border-radius: 10px;
     opacity: 0.8;
+    width: 160px;
 }
 
 .paymentLink:hover {
     opacity: 1;
     transform: scale(1.02);
     transition: all .2s linear;
+}
+
+.paymentStatusLinkBlock {
+    text-align: center;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.paymentStautsLinkInfo {
+    font-size: 12px;
+    color: #5b5bbf;
+    user-select: none;
 }

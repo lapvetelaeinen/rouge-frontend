@@ -9,6 +9,7 @@ const SwishPayment = (props) => {
     const [qrCodeImage, setQrCodeImage] = useState('');
     const [error, setError] = useState('');
     const [paymentAppLink, setPaymentAppLink] = useState('');
+    const [callbackUrl, setCallbackUrl] = useState('');
     const [isMobile, setIsMobile] = useState(false);
     const [isLoading, setLoader] = useState(false);
 
@@ -22,14 +23,16 @@ const SwishPayment = (props) => {
 
     const setAppPaymentLink = () => {
         let payLink = ""
+        let cbUrl = ""
         if (token && paymentId) {
             const origin = window.location.origin || 'http://localhost:3000'
-            const callbackUrl = `${origin}/payment-status?swish_pay_id=${paymentId}`;
-            console.log(">> Check payment status Link: ", callbackUrl)
-            const appUrl = `swish://paymentrequest?token=${token}&callbackurl=${callbackUrl}`;
+            cbUrl = `${origin}/payment-status?swish_pay_id=${paymentId}`;
+            console.log(">> Check payment status Link: ", cbUrl)
+            const appUrl = `swish://paymentrequest?token=${token}&callbackurl=${cbUrl}`;
             payLink = appUrl
         }
         setPaymentAppLink(payLink)
+        setCallbackUrl(cbUrl)
     }
 
     const getQrCode = async (paymentToken) => {
@@ -149,6 +152,13 @@ const SwishPayment = (props) => {
                                 width={300}
                                 className={styles.paymentImg}
                             />
+                        </div>
+                    }
+                    {
+                        (callbackUrl) &&
+                        <div className={styles.paymentStatusLinkBlock}>
+                            <p className={styles.paymentStautsLinkInfo}>Klicka på knappen när du betalat i Swish-appen</p>
+                            <a href={callbackUrl} className={styles.paymentLink} target="_blank" rel="noreferrer">Betalat</a>
                         </div>
                     }
                     {
