@@ -49,7 +49,7 @@ export default function Home() {
               <br />
               NÄRA
               <br />
-              STUDENTERNA!
+              STUDENTERNA!!
             </h1>
           </div>
           <video src="/mobile-hero.mp4" playsInline autoPlay loop muted />
