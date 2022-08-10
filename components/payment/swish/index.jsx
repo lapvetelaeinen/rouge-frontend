@@ -109,6 +109,12 @@ const SwishPayment = (props) => {
     }, [])
 
     useEffect(() => {
+        if (isMobile && paymentAppLink) {
+            window.location = paymentAppLink;
+        }
+    }, [isMobile, paymentAppLink])
+
+    useEffect(() => {
         if (token) {
             getQrCode(token)
         }
@@ -161,13 +167,14 @@ const SwishPayment = (props) => {
                             <a href={callbackUrl} className={styles.paymentLink} target="_blank" rel="noreferrer">Betalat</a>
                         </div>
                     }
-                    {
+                    {/* Hide pay using app link */}
+                    {/*  {
                         (isMobile && paymentAppLink) &&
                         <div className={styles.paymentLinkBlock}>
                             <p className={styles.paymentLinkInfo}>Go to app and pay</p>
                             <a href={paymentAppLink} className={styles.paymentLink} target="_blank" rel="noreferrer">Pay using app</a>
                         </div>
-                    }
+                    } */}
                     {error && <div className={`${styles.paymentError} ml-4`}>{error}</div>}
                 </div>
             </div>
