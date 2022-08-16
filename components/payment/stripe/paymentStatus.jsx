@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import styles from '../../../styles/payment.module.css'
+import styles from "../../../styles/payment.module.css";
 
 const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
@@ -18,9 +18,9 @@ const PaymentStatus = (props) => {
   };
 
   useEffect(() => {
-    const payment_intent_id = props.paymentId ||  new URLSearchParams(window.location.search).get(
-      "payment_intent"
-    );
+    const payment_intent_id =
+      props.paymentId ||
+      new URLSearchParams(window.location.search).get("payment_intent");
 
     if (!payment_intent_id) {
       setMessage("Not found payment instance");
@@ -44,6 +44,7 @@ const PaymentStatus = (props) => {
         switch (data.paymentStatus) {
           case "succeeded":
             setMessage("Payment succeeded!");
+            console.log(data.metadata);
             createOrder(data.metadata);
             break;
           case "processing":
@@ -57,11 +58,12 @@ const PaymentStatus = (props) => {
             break;
         }
         return true;
-      }).catch(error => {
+      })
+      .catch((error) => {
         setMessage(error.message || "Something went wrong.");
         return false;
       });
-      setIsLoading(false)
+    setIsLoading(false);
   }, []);
 
   return (
@@ -101,9 +103,7 @@ const PaymentStatus = (props) => {
       {/* Show any error or success messages */}
       {message && !isLoading && (
         <div>
-          <h1 className={styles.paymentStatusMessage}>
-            Status: {message}
-          </h1>
+          <h1 className={styles.paymentStatusMessage}>Status: {message}</h1>
         </div>
       )}
     </div>

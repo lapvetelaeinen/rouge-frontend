@@ -47,7 +47,12 @@ const PaymentStatus = (props) => {
           case "PAID":
             setMessage("Payment succeeded!");
             console.log(data);
-            createOrder(data);
+            createOrder({
+              eventId: "dihasd",
+              event: "hdfusdh",
+              ticketClass: "dsaasd",
+              owner: "fhdsid",
+            });
             break;
           case "CANCELLED":
             setMessage("Your payment cancelled.");
