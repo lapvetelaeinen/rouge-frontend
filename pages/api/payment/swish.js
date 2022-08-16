@@ -214,6 +214,7 @@ const handler = async (req, res) => {
   if (type === "getPaymentStatus") {
     try {
       const paymentId = body.paymentId;
+      const customerEmail = body.email;
       if (!paymentId) {
         res.status(400).send({
           status: "fail",
@@ -229,7 +230,7 @@ const handler = async (req, res) => {
         // Update payment status on database
         res
           .status(200)
-          .send({ result: result, customer: { email: paymentId } });
+          .send({ result: result, customer: { email: customerEmail } });
         return;
       }
 
