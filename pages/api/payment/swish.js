@@ -90,15 +90,6 @@ const createPayment = async (data) => {
   }
 
   // SEND EMAIL API
-  const createOrder = async (params) => {
-    await axios.post("/api/order-confirmation", params).catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      }
-    });
-  };
 
   // Error handling known & unknown
   let errorMessage = "Something wrong please try again";
@@ -141,6 +132,16 @@ const handler = async (req, res) => {
     res.status(405).end("Method Not Allowed");
     return;
   }
+
+  const createOrder = async (params) => {
+    await axios.post("/api/order-confirmation", params).catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+  };
 
   const body = req.body;
   const type = body.type;
