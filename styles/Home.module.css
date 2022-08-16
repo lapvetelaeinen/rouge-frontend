@@ -119,9 +119,19 @@
   margin-left: 0.5rem;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 768px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+  .mediaScroller {
+    padding-bottom: 40px;
+    margin-left: 10px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 34%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
   }
 }

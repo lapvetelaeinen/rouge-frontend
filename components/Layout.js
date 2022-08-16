@@ -1,14 +1,14 @@
+import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import Footer from "./Footer";
 
-const Layout = ({ children }) => {
+export default function Layout({ children }) {
   return (
     <>
       <MobileNav />
+      <DesktopNav />
       {children}
       <Footer />
     </>
   );
-};
-
-export default Layout;
+}

@@ -17,7 +17,7 @@ function MobileNav() {
 
   return (
     <>
-      <div className="bg-neutral-900 flex justify-between items-center py-3 px-4">
+      <div className="bg-neutral-900 flex justify-between items-center py-3 px-4 md:hidden">
         {isOpen ? (
           <Times
             fill="url('#myGradient2')"
@@ -41,7 +41,7 @@ function MobileNav() {
           fill="url('#myGradient')"
           width="35px"
           height="35px"
-          onClick={() => router.push("/user/tickets")}
+          onClick={() => router.push("/#tickets")}
         />
       </div>
       {isOpen ? (
