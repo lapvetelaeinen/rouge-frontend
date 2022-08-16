@@ -166,12 +166,12 @@ const handler = async (req, res) => {
           headers: {},
           data: {
             ticketId: result.id,
-            eventId: "req.body.eventId",
-            event: "req.body.eventName",
-            ticketClass: "req.body.ticketClass",
-            owner: "req.body.email",
+            eventId: body.eventId,
+            event: body.event,
+            ticketClass: body.ticketClass,
+            owner: body.email,
             used: false,
-            paymentStatus: result,
+            paymentStatus: result.status,
           },
         });
 
