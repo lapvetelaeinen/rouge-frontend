@@ -10,6 +10,7 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 import fetch from "node-fetch";
+import axios from "axios";
 
 const ROOT_PATH = process.cwd();
 const testConfig = {
@@ -157,7 +158,16 @@ const handler = async (req, res) => {
           paymentStatus: result.status,
         });
 
-        console.log("is it a success?");
+        await axios({
+          method: "post",
+          url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
+          headers: {},
+          data: JSON.stringify({
+            recipent: "filip.lapvetelainen@gmail.com",
+            ticketId: "jdsj",
+            eventName: "hdhdh",
+          }),
+        });
         return;
       }
 
