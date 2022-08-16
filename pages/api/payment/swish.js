@@ -161,6 +161,14 @@ const handler = async (req, res) => {
       if (result && result.id && !result.errorMessage) {
         // store this token after that will not able to find
         const token = result.token || result.paymentReference;
+
+        createOrder({
+          eventId: "ijdsfj",
+          event: "hfsh",
+          ticketClass: "husdfh",
+          owner: "hsdfh",
+        });
+
         res.status(200).send({
           status: "success",
           id: result.id,
@@ -168,12 +176,7 @@ const handler = async (req, res) => {
           paymentStatus: result.status,
         });
         // ADD CREATE ORDER CONFIRMATION HERE
-        // createOrder({
-        //   eventId: "ijdsfj",
-        //   event: "hfsh",
-        //   ticketClass: "husdfh",
-        //   owner: "hsdfh",
-        // });
+
         return;
       }
 
