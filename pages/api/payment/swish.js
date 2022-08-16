@@ -168,7 +168,12 @@ const handler = async (req, res) => {
           paymentStatus: result.status,
         });
         // ADD CREATE ORDER CONFIRMATION HERE
-
+        createOrder({
+          eventId: "ijdsfj",
+          event: "hfsh",
+          ticketClass: "husdfh",
+          owner: "hsdfh",
+        });
         return;
       }
 

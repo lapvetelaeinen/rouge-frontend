@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
 import styles from "../../../styles/payment.module.css";
 import axios from "axios";
-import { EventContext } from "../../../contexts/EventContext";
-import { useContext } from "react";
 
 const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
   const [paymentMeta, setPaymentMeta] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
-
-  const { currentOrder, setCurrentOrder } = useContext(EventContext);
 
   useEffect(() => {
     const paymentId = props.paymentId;
@@ -52,12 +48,6 @@ const PaymentStatus = (props) => {
           case "PAID":
             setMessage("Payment succeeded!");
             console.log(data);
-            createOrder({
-              eventId: "dihasd",
-              event: "hdfusdh",
-              ticketClass: "dsaasd",
-              owner: "fhdsid",
-            });
             break;
           case "CANCELLED":
             setMessage("Your payment cancelled.");
