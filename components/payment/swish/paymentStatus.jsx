@@ -27,6 +27,13 @@ const PaymentStatus = (props) => {
         });
     };
 
+    const fuck = async () => {
+      const damn = await axios.get(
+        "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/tickets"
+      );
+      return damn;
+    };
+
     fetch("/api/payment/swish", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -42,10 +49,8 @@ const PaymentStatus = (props) => {
         switch (data.result.status) {
           case "CREATED":
             setMessage("Payment is created not paid yet.");
-            const fuck = axios.get(
-              "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/tickets"
-            );
-            console.log(fuck);
+            const jaha = fuck();
+            console.log(jaha);
             break;
           case "PAID":
             setMessage("Payment succeeded!");
