@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import styles from "../../../styles/payment.module.css";
+import { EventContext } from "../contexts/EventContext";
+import { useContext } from "react";
 
 const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
   const [paymentMeta, setPaymentMeta] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
+  const { events, saveEvents } = useContext(EventContext);
 
   useEffect(() => {
     const paymentId = props.paymentId;
@@ -33,6 +36,7 @@ const PaymentStatus = (props) => {
       body: JSON.stringify({
         type: "getPaymentStatus",
         paymentId: paymentId,
+        lala: events,
       }),
     })
       .then((res) => res.json())
