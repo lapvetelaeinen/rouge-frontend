@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { EventContext } from "../contexts/EventContext";
 import { useContext } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Calendar from "../components/Calendar";
 import styles from "../styles/Home.module.css";
 import useSWR from "swr";
