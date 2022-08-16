@@ -224,11 +224,11 @@ const handler = async (req, res) => {
 
       const paymentUrl = `${config.host}/api/v1/paymentrequests/${paymentId}`;
       const result = await getPaymentDetails(paymentUrl);
-      const email = { lalal: body.email };
+      const customer = { lalal: body.email };
 
       if (result && result.id && !result.errorMessage) {
         // Update payment status on database
-        res.status(200).send({ result: result, email: email });
+        res.status(200).send({ result: result, email: customer });
         return;
       }
 
