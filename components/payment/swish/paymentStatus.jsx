@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "../../../styles/payment.module.css";
 import axios from "axios";
-import { EventContext } from "../../contexts/EventContext";
+import { EventContext } from "../../../contexts/EventContext";
 import { useContext } from "react";
 
 const PaymentStatus = (props) => {
