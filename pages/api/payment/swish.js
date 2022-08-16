@@ -89,6 +89,17 @@ const createPayment = async (data) => {
     };
   }
 
+  // SEND EMAIL API
+  const createOrder = async (params) => {
+    await axios.post("/api/order-confirmation", params).catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+  };
+
   // Error handling known & unknown
   let errorMessage = "Something wrong please try again";
   try {
@@ -142,7 +153,6 @@ const handler = async (req, res) => {
       callbackUrl: config.callbackUrl,
       amount: String(body.totalPrice),
       message: body.event,
-      email: body.email,
     };
 
     try {
@@ -157,6 +167,9 @@ const handler = async (req, res) => {
           token: token,
           paymentStatus: result.status,
         });
+        // ADD CREATE ORDER CONFIRMATION HERE
+        createOrder({ eventName: "lalala" });
+
         return;
       }
 
