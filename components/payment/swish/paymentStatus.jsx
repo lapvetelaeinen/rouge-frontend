@@ -39,7 +39,7 @@ const PaymentStatus = (props) => {
       .then((data) => {
         console.log(">>> Payment status", data);
         setPaymentMeta(data);
-        switch (data.status) {
+        switch (data[0].status) {
           case "CREATED":
             setMessage("Payment is created not paid yet.");
             break;
