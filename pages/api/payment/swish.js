@@ -156,6 +156,8 @@ const handler = async (req, res) => {
           token: token,
           paymentStatus: result.status,
         });
+
+        console.log("is it a success?");
         return;
       }
 
