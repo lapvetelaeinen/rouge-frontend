@@ -158,6 +158,8 @@ const handler = async (req, res) => {
           paymentStatus: result.status,
         });
 
+        console.log("WE HAVE RESULT: ", result);
+
         await axios({
           method: "post",
           url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
