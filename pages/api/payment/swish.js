@@ -142,6 +142,7 @@ const handler = async (req, res) => {
       callbackUrl: config.callbackUrl,
       amount: String(body.totalPrice),
       message: body.event,
+      email: body.email,
     };
 
     try {

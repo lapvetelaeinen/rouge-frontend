@@ -96,7 +96,7 @@ const PaymentStatus = (props) => {
               <b>Status</b>: {paymentMeta.status}
             </li>
             <li>
-              <b>Test</b>: {props.isTesting}
+              <b>Email</b>: {paymentMeta.email}
             </li>
           </ul>
         </div>
