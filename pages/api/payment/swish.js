@@ -214,7 +214,7 @@ const handler = async (req, res) => {
   if (type === "getPaymentStatus") {
     try {
       const paymentId = body.paymentId;
-      const customerEmail = body.email;
+      const customerEmail = body;
       if (!paymentId) {
         res.status(400).send({
           status: "fail",
