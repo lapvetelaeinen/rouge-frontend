@@ -158,16 +158,6 @@ const handler = async (req, res) => {
           paymentStatus: result.status,
         });
 
-        await axios({
-          method: "post",
-          url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
-          headers: {},
-          data: JSON.stringify({
-            recipent: "filip.lapvetelainen@gmail.com",
-            ticketId: "jdsj",
-            eventName: "hdhdh",
-          }),
-        });
         return;
       }
 
@@ -234,10 +224,11 @@ const handler = async (req, res) => {
 
       const paymentUrl = `${config.host}/api/v1/paymentrequests/${paymentId}`;
       const result = await getPaymentDetails(paymentUrl);
+      const order = body.event;
 
       if (result && result.id && !result.errorMessage) {
         // Update payment status on database
-        res.status(200).send(result);
+        res.status(200).send(result, order);
         return;
       }
 
