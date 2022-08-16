@@ -227,7 +227,9 @@ const handler = async (req, res) => {
 
       if (result && result.id && !result.errorMessage) {
         // Update payment status on database
-        res.status(200).send({ result: result, customer: { email: "jaja" } });
+        res
+          .status(200)
+          .send({ result: result, customer: { email: paymentId } });
         return;
       }
 
