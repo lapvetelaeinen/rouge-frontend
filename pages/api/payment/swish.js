@@ -125,6 +125,16 @@ const getQrCode = async (
   });
 };
 
+const createOrder = async (params) => {
+  await axios.post("/api/order-confirmation", params).catch(function (error) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    }
+  });
+};
+
 // OLD CODE BELOW
 
 const handler = async (req, res) => {
@@ -172,16 +182,6 @@ const handler = async (req, res) => {
           }),
         });
         // ADD CREATE ORDER CONFIRMATION HERE
-        await axios({
-          method: "post",
-          url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
-          headers: {},
-          data: JSON.stringify({
-            recipent: "filip.lapvetelainen@gmail.com",
-            ticketId: "testtestest",
-            eventName: "lalalla",
-          }),
-        });
 
         return;
       }
