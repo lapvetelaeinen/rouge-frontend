@@ -171,7 +171,7 @@ const handler = async (req, res) => {
             ticketClass: "req.body.ticketClass",
             owner: "req.body.email",
             used: false,
-            paymentStatus: result.status,
+            paymentStatus: result,
           },
         });
 
