@@ -44,7 +44,6 @@ const PaymentStatus = (props) => {
         switch (data.paymentStatus) {
           case "succeeded":
             setMessage("Payment succeeded!");
-            console.log(data.metadata);
             createOrder(data.metadata);
             break;
           case "processing":

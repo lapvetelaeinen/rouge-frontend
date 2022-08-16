@@ -10,7 +10,6 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 import fetch from "node-fetch";
-import axios from "axios";
 
 const ROOT_PATH = process.cwd();
 const testConfig = {
@@ -90,8 +89,6 @@ const createPayment = async (data) => {
     };
   }
 
-  // SEND EMAIL API
-
   // Error handling known & unknown
   let errorMessage = "Something wrong please try again";
   try {
@@ -125,16 +122,6 @@ const getQrCode = async (
   });
 };
 
-const createOrder = async (params) => {
-  await axios.post("/api/order-confirmation", params).catch(function (error) {
-    if (error.response) {
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    }
-  });
-};
-
 // OLD CODE BELOW
 
 const handler = async (req, res) => {
@@ -163,26 +150,12 @@ const handler = async (req, res) => {
       if (result && result.id && !result.errorMessage) {
         // store this token after that will not able to find
         const token = result.token || result.paymentReference;
-
         res.status(200).send({
           status: "success",
           id: result.id,
           token: token,
           paymentStatus: result.status,
         });
-
-        await axios({
-          method: "post",
-          url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
-          headers: {},
-          data: JSON.stringify({
-            recipent: "filip.lapvetelainen@gmail.com",
-            ticketId: ticketId,
-            eventName: "lalalla",
-          }),
-        });
-        // ADD CREATE ORDER CONFIRMATION HERE
-
         return;
       }
 

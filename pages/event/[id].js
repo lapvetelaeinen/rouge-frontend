@@ -5,11 +5,8 @@ import Image from "next/image";
 import Times from "../../components/svg/Times";
 import StripePayment from "../../components/payment/stripe";
 import SwishPayment from "../../components/payment/swish";
-import { EventContext } from "../../contexts/EventContext";
-import { useContext } from "react";
 
 export default function EventPage({ data }) {
-  const { currentOrder, setCurrentOrder } = useContext(EventContext);
   const router = useRouter();
   const passedID = router.query.id;
   const [showModal, setShowModal] = useState(false);
@@ -48,13 +45,10 @@ export default function EventPage({ data }) {
       eventId: thisEvent.eventId,
       ticketClass: ticketClass,
       quantity: 1,
-      totalPrice: price,
+      totalPrice: quantity * price,
       paymentMethod: payMethod,
       email: email,
     };
-
-    setCurrentOrder(order);
-
     console.log(">>>order>>>", order);
 
     const orderDetails = {
@@ -164,12 +158,12 @@ export default function EventPage({ data }) {
                         </option>
                       ))}
                     </select>
-                    {/* <input
+                    <input
                       type="number"
                       className="ml-2 bg-neutral-200 rounded-md text-neutral-500 shadow-sm w-[30px] text-center"
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
-                    /> */}
+                    />
                   </div>
 
                   <div className=" flex pt-4 text-3xl text-neutral-700 justify-center font-bold">

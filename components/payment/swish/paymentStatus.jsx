@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styles from "../../../styles/payment.module.css";
-import axios from "axios";
 
 const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
@@ -9,8 +8,6 @@ const PaymentStatus = (props) => {
 
   useEffect(() => {
     const paymentId = props.paymentId;
-
-    console.log(props);
 
     if (!paymentId) {
       setMessage("Not found payment instance");
@@ -28,7 +25,6 @@ const PaymentStatus = (props) => {
             console.log(error.response.headers);
           }
         });
-      console.log(currentOrder);
     };
 
     fetch("/api/payment/swish", {
@@ -98,9 +94,6 @@ const PaymentStatus = (props) => {
             </li>
             <li>
               <b>Status</b>: {paymentMeta.status}
-            </li>
-            <li>
-              <b>Email</b>: {paymentMeta.email}
             </li>
           </ul>
         </div>
