@@ -133,16 +133,6 @@ const handler = async (req, res) => {
     return;
   }
 
-  const createOrder = async (params) => {
-    await axios.post("/api/order-confirmation", params).catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      }
-    });
-  };
-
   const body = req.body;
   const type = body.type;
 
@@ -162,13 +152,6 @@ const handler = async (req, res) => {
       if (result && result.id && !result.errorMessage) {
         // store this token after that will not able to find
         const token = result.token || result.paymentReference;
-
-        createOrder({
-          eventId: "ijdsfj",
-          event: "hfsh",
-          ticketClass: "husdfh",
-          owner: "hsdfh",
-        });
 
         res.status(200).send({
           status: "success",
