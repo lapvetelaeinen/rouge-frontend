@@ -13,8 +13,6 @@ const SwishPayment = (props) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setLoader] = useState(false);
 
-  console.log("PROOOOPS: ", props);
-
   const checkDevice = () => {
     setIsMobile(false);
     if (
