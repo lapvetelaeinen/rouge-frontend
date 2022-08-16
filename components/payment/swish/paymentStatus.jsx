@@ -10,6 +10,8 @@ const PaymentStatus = (props) => {
   useEffect(() => {
     const paymentId = props.paymentId;
 
+    console.log(props);
+
     if (!paymentId) {
       setMessage("Not found payment instance");
       setIsLoading(false);
