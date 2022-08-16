@@ -168,7 +168,6 @@ const handler = async (req, res) => {
           paymentStatus: result.status,
         });
         // ADD CREATE ORDER CONFIRMATION HERE
-        createOrder({ eventName: "lalala" });
 
         return;
       }

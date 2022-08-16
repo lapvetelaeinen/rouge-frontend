@@ -12,7 +12,6 @@ const SwishPayment = (props) => {
   const [callbackUrl, setCallbackUrl] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setLoader] = useState(false);
-  const [isTest, setIsTest] = useState("tadaa");
 
   const checkDevice = () => {
     setIsMobile(false);
@@ -99,7 +98,6 @@ const SwishPayment = (props) => {
         return false;
       });
     console.log(">>result> SIWSH: ", result);
-    console.log(">>result> EMAIL: ", props.order.email);
     if (result && result.token) {
       setToken(result.token);
       setPaymentId(result.id);
