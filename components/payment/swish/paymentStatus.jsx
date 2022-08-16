@@ -15,7 +15,7 @@ const PaymentStatus = (props) => {
       return;
     }
 
-    const createOrder = async (params) => {
+    const checkDatabaseStatus = async (params) => {
       await axios
         .post("/api/order-confirmation", params)
         .catch(function (error) {
@@ -42,6 +42,10 @@ const PaymentStatus = (props) => {
         switch (data.result.status) {
           case "CREATED":
             setMessage("Payment is created not paid yet.");
+            const fuck = axios.get(
+              "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/tickets"
+            );
+            console.log(fuck);
             break;
           case "PAID":
             setMessage("Payment succeeded!");
