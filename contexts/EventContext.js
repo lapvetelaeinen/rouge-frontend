@@ -6,6 +6,7 @@ const EventContext = createContext();
 
 function EventProvider({ children }) {
   const [events, setEvents] = useState(null);
+  const [currentOrder, setCurrentOrder] = useState(null);
 
   function saveEvents(data) {
     setEvents(data);
@@ -24,6 +25,8 @@ function EventProvider({ children }) {
         events,
         saveEvents,
         getEvent,
+        currentOrder,
+        setCurrentOrder,
       }}
     >
       {children}

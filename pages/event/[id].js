@@ -5,8 +5,11 @@ import Image from "next/image";
 import Times from "../../components/svg/Times";
 import StripePayment from "../../components/payment/stripe";
 import SwishPayment from "../../components/payment/swish";
+import { EventContext } from "../../contexts/EventContext";
+import { useContext } from "react";
 
 export default function EventPage({ data }) {
+  const { currentOrder, setCurrentOrder } = useContext(EventContext);
   const router = useRouter();
   const passedID = router.query.id;
   const [showModal, setShowModal] = useState(false);
@@ -49,6 +52,9 @@ export default function EventPage({ data }) {
       paymentMethod: payMethod,
       email: email,
     };
+
+    setCurrentOrder(order);
+
     console.log(">>>order>>>", order);
 
     const orderDetails = {

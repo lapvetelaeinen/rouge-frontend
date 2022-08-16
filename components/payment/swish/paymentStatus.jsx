@@ -7,6 +7,8 @@ const PaymentStatus = (props) => {
   const [paymentMeta, setPaymentMeta] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
 
+  const { currentOrder, setCurrentOrder } = useContext(EventContext);
+
   useEffect(() => {
     const paymentId = props.paymentId;
 
@@ -26,6 +28,7 @@ const PaymentStatus = (props) => {
             console.log(error.response.headers);
           }
         });
+      console.log(currentOrder);
     };
 
     fetch("/api/payment/swish", {
