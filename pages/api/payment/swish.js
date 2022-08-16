@@ -165,7 +165,7 @@ const handler = async (req, res) => {
           url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
           headers: {},
           data: {
-            ticketId: "ticketId",
+            ticketId: result.id,
             eventId: "req.body.eventId",
             event: "req.body.eventName",
             ticketClass: "req.body.ticketClass",
