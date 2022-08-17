@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../../styles/payment.module.css";
 import axios from "axios";
 
@@ -6,6 +6,8 @@ const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
   const [paymentMeta, setPaymentMeta] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isClicked, setIsClicked] = useState(false);
+  const [ownerEmail, setOwnerEmail] = useState("");
 
   async function checkTicket(ticketId) {
     const url =
@@ -50,6 +52,8 @@ const PaymentStatus = (props) => {
             updateValue: "PAID",
           },
         });
+
+        setOwnerEmail(data.owner);
       });
   }
 
@@ -98,10 +102,15 @@ const PaymentStatus = (props) => {
         setPaymentMeta(data);
         switch (data.result.status) {
           case "CREATED":
-            setMessage("Payment is created not paid yet.");
+            setMessage("pending");
+            // make this prettier
+            setTimeout(wait, 3000);
+            function wait() {
+              setIsClicked(!isClicked);
+            }
             break;
           case "PAID":
-            setMessage("Payment succeeded!");
+            setMessage("success");
             checkTicket(paymentId);
             break;
           case "CANCELLED":
@@ -129,10 +138,10 @@ const PaymentStatus = (props) => {
         return false;
       });
     setIsLoading(false);
-  }, []);
+  }, [isClicked]);
 
   return (
-    <div id="swish-payment-status">
+    <div id="swish-payment-status" className="h-screen bg-neutral-800">
       <div>
         {isLoading ? (
           <h1 className={styles.paymentStatusMessage}>Loading...</h1>
@@ -140,7 +149,7 @@ const PaymentStatus = (props) => {
           ""
         )}
       </div>
-      {paymentMeta && paymentMeta.id && (
+      {/* {paymentMeta && paymentMeta.id && (
         <div className="flex">
           <ul>
             <li>
@@ -154,14 +163,37 @@ const PaymentStatus = (props) => {
             </li>
           </ul>
         </div>
-      )}
+      )} */}
 
       {/* Show any error or success messages */}
-      {message && !isLoading && (
-        <div>
-          <h1 className={styles.paymentStatusMessage}>Status: {message}</h1>
+      {message === "pending" && !isLoading && (
+        <div className="flex flex-col justify-center items-center pt-20 text-center">
+          <div className="bg-neutral-300 p-10 rounded-lg">
+            <h1 className="text-2xl text-neutral-800">
+              Väntar på betalning...
+            </h1>
+            <p className="pt-10 text-xl text-neutral-600">
+              Trött på att vänta?
+            </p>
+            <button
+              className="bg-violet-400 p-4 rounded-md shadow-md mt-5 text-neutral-700"
+              onClick={() => setIsClicked(!isClicked)}
+            >
+              Gå före i kön
+            </button>
+          </div>
         </div>
       )}
+      {message === "success" ? (
+        <>
+          <div className="flex justify-center font-steelfish text-[60px] text-[#d57187]">
+            <h2>Tack för ditt köp!</h2>
+          </div>
+          <p className="text-center text-neutral-400">
+            En QR-kod har skickats till {ownerEmail}.
+          </p>
+        </>
+      ) : null}
     </div>
   );
 };
