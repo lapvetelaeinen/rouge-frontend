@@ -1,10 +1,42 @@
 import React, { useEffect } from "react";
 import styles from "../../../styles/payment.module.css";
+import axios from "axios";
 
 const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
   const [paymentMeta, setPaymentMeta] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
+
+  async function checkTicket(ticketId) {
+    const url =
+      "https://mcogg5h829.execute-api.eu-west-2.amazonaws.com/tickt/ticket";
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        ticketId: ticketId,
+      }),
+    };
+    await fetch(url, options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("RESPONSE FROM API: ", data);
+
+        axios({
+          method: "patch",
+          url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
+          headers: {},
+          data: {
+            ticketId: ticketId,
+            updateKey: "paymentStatus",
+            updateValue: "PAID",
+          },
+        });
+      });
+  }
 
   useEffect(() => {
     const paymentId = props.paymentId;
@@ -27,12 +59,15 @@ const PaymentStatus = (props) => {
         });
     };
 
-    const fuck = async () => {
-      const damn = await axios.get(
-        "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/tickets"
-      );
-      return damn;
-    };
+    const res = fetch(
+      "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/tickets"
+    );
+
+    res
+      .then((value) => value.json())
+      .then((data) => {
+        console.log(data);
+      });
 
     fetch("/api/payment/swish", {
       method: "POST",
@@ -49,12 +84,10 @@ const PaymentStatus = (props) => {
         switch (data.result.status) {
           case "CREATED":
             setMessage("Payment is created not paid yet.");
-            const jaha = fuck();
-            console.log(jaha);
             break;
           case "PAID":
             setMessage("Payment succeeded!");
-            console.log(data);
+            checkTicket(paymentId);
             break;
           case "CANCELLED":
             setMessage("Your payment cancelled.");
