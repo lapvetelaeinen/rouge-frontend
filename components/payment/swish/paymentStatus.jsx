@@ -25,6 +25,21 @@ const PaymentStatus = (props) => {
       .then((data) => {
         console.log("RESPONSE FROM API: ", data);
 
+        if (data.paymentStatus === "PAID") {
+          return;
+        }
+
+        axios({
+          method: "post",
+          url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
+          headers: {},
+          data: JSON.stringify({
+            recipent: data.owner,
+            ticketId: ticketId,
+            eventName: data.event,
+          }),
+        });
+
         axios({
           method: "patch",
           url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
