@@ -39,6 +39,7 @@ const PaymentStatus = (props) => {
             recipent: data.owner,
             ticketId: ticketId,
             eventName: data.event,
+            color: data.color,
           }),
         });
 

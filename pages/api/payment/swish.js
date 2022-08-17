@@ -171,6 +171,7 @@ const handler = async (req, res) => {
             owner: body.email,
             used: false,
             paymentStatus: result.status,
+            color: body.color,
           },
         });
 

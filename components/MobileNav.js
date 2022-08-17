@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router.js";
 import Link from "next/link.js";
 import PyramidMask from "./svg/PyramidMask";
+import Pyramid from "./svg/Pyramid";
 import Bars from "./svg/Bars";
 import Times from "./svg/Times";
 import Ticket from "./svg/Ticket";
@@ -34,8 +35,7 @@ function MobileNav() {
           />
         )}
         <div className="relative" onClick={() => clickLogo()}>
-          <div className="absolute bg-[url('../assets/img/gradient.png')] w-[58px] h-full text-center animate-blob" />
-          <PyramidMask width="60px" height="100%" className="relative" />
+          <Pyramid width="60px" height="100%" className="relative" />
         </div>
         <Ticket
           fill="url('#myGradient')"

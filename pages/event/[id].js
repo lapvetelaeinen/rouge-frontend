@@ -48,6 +48,7 @@ export default function EventPage({ data }) {
       totalPrice: quantity * price,
       paymentMethod: payMethod,
       email: email,
+      color: thisEvent.color,
     };
     console.log(">>>order>>>", order);
 
