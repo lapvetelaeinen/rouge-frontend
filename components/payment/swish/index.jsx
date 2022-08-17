@@ -153,8 +153,10 @@ const SwishPayment = (props) => {
             Payment
           </h1>
           {isLoading && (
-            <h1 className={`text-2xl bold mb-4 ${styles.paymentTitle}`}>
-              Loading...
+            <h1
+              className={`text-2xl text-center bold mb-4 ${styles.paymentTitle}`}
+            >
+              Laddar...
             </h1>
           )}
           {qrCodeImage && (

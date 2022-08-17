@@ -230,7 +230,7 @@ export default function EventPage({ data }) {
                     className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full  text-4xl font-steelfish text-neutral-800 rounded-lg py-6 shadow-lg"
                     onClick={onSubmit}
                   >
-                    KÖP-Submit
+                    BETALA
                   </button>
                 </div>
                 <p className="text-xs text-center pt-4 text-neutral-500">
