@@ -66,13 +66,13 @@ export default function Home({ isMobileView, posts }) {
             />
           )}
         </div>
-        <div className="pt-10 md:px-40">
+        {/* <div className="pt-10 md:px-40">
           <h2 className="font-steelfish text-[100px] text-[#d57187] pl-4 pb-4">
             Schema <p className="inline text-5xl pl-6">🥳</p>
           </h2>
 
           <Calendar />
-        </div>
+        </div> */}
         {data ? (
           <div className="pt-10 md:pl-40" onClick={() => console.log(events)}>
             <h2
