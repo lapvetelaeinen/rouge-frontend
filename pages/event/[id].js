@@ -40,15 +40,18 @@ export default function EventPage({ data }) {
       setPayError(null);
     }
 
+    const randomNumber = Math.floor(Math.random() * 90000) + 10000;
+
     const order = {
       event: thisEvent.title,
+      randomNumber: randomNumber,
       eventId: thisEvent.eventId,
       ticketClass: ticketClass,
       quantity: 1,
       totalPrice: quantity * price,
       paymentMethod: payMethod,
       email: email,
-      color: thisEvent.color,
+      color: ticketClass,
     };
     console.log(">>>order>>>", order);
 
@@ -72,7 +75,9 @@ export default function EventPage({ data }) {
     const chosenTicket = thisEvent.tickets.find(
       (ticket) => ticket.class == event.target.value
     );
+    setTicketClass(chosenTicket.class);
     setPrice(chosenTicket.price);
+    console.log(ticketClass);
   };
 
   const openModal = () => {
@@ -142,7 +147,7 @@ export default function EventPage({ data }) {
                   />
                   <div className="pl-5 text-neutral-700">
                     <p className="text-2xl">{thisEvent.title}</p>
-                    <p>{thisEvent.date.substring(0, 10)}</p>
+                    <p>Gäller valfri dag under insparken</p>
                   </div>
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
@@ -172,6 +177,16 @@ export default function EventPage({ data }) {
                     <p className="pl-2">{price * quantity} SEK</p>
                   </div>
                 </div>
+                {ticketClass != "Vanlig" ? (
+                  <>
+                    <p className="text-center text-red-500">Viktigt!</p>
+                    <p className="text-center px-4 pb-4 text-red-500">
+                      Vid köp av grön eller röd biljett så måste du visa upp
+                      giltigt band vid entrén.
+                    </p>
+                  </>
+                ) : null}
+
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
                   <div className="flex flex-col text-xl">
                     <p className="text-neutral-700">
@@ -233,7 +248,7 @@ export default function EventPage({ data }) {
                     BETALA
                   </button>
                 </div>
-                <p className="text-xs text-center pt-4 text-neutral-500">
+                <p className="text-xs text-center pt-4 pb-4 text-neutral-500">
                   Genom att klicka på köp så godkänner du våra villkor för
                   biljettköp.
                 </p>
@@ -269,7 +284,7 @@ export default function EventPage({ data }) {
           className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full fixed bottom-0 h-20 text-3xl font-steelfish text-neutral-800"
           onClick={() => openModal()}
         >
-          KÖP BILJETT FRÅN {thisEvent.tickets[0].price} SEK
+          KÖP BILJETT
         </button>
       </div>
     </div>

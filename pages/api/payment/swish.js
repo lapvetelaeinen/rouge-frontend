@@ -11,6 +11,7 @@ import path from "path";
 import https from "https";
 import fetch from "node-fetch";
 import axios from "axios";
+import { brotliDecompressSync } from "zlib";
 
 const ROOT_PATH = process.cwd();
 const testConfig = {
@@ -172,6 +173,7 @@ const handler = async (req, res) => {
             used: false,
             paymentStatus: result.status,
             color: body.color,
+            randomNumber: body.randomNumber,
           },
         });
 

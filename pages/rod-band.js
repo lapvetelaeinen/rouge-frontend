@@ -41,14 +41,18 @@ export default function EventPage() {
       setPayError(null);
     }
 
+    const randomNumber = Math.floor(Math.random() * 90000) + 10000;
+
     const order = {
       event: "INSPARK",
       eventId: "INSPARK2022",
       ticketClass: ticketClass,
+      randomNumber: randomNumber,
       quantity: 1,
       totalPrice: quantity * price,
       paymentMethod: payMethod,
       email: email,
+      color: "Röd",
     };
     console.log(">>>order>>>", order);
 

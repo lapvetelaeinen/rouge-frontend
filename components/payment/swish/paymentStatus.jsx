@@ -40,6 +40,7 @@ const PaymentStatus = (props) => {
             ticketId: ticketId,
             eventName: data.event,
             color: data.color,
+            randomNumber: data.randomNumber,
           }),
         });
 
@@ -191,7 +192,7 @@ const PaymentStatus = (props) => {
             <h2>Tack för ditt köp!</h2>
           </div>
           <p className="text-center text-neutral-400">
-            En QR-kod har skickats till {ownerEmail}.
+            En QR-kod skickas strax till {ownerEmail}.
           </p>
         </>
       ) : null}
