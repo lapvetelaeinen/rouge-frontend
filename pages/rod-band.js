@@ -5,6 +5,7 @@ import Image from "next/image";
 import Times from "../components/svg/Times";
 import StripePayment from "../components/payment/stripe";
 import SwishPayment from "../components/payment/swish";
+import BandImage from "../assets/img/red-band.jpg";
 
 export default function EventPage() {
   const router = useRouter();
@@ -14,9 +15,9 @@ export default function EventPage() {
   const [payError, setPayError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [email, setEmail] = useState("");
-  const [value, setValue] = useState("");
-  const [price, setPrice] = useState("");
-  const [ticketClass, setTicketClass] = useState("");
+  const [value, setValue] = useState(80);
+  const [price, setPrice] = useState(80);
+  const [ticketClass, setTicketClass] = useState("Sponsor");
   const [orderDetail, setOrderDetail] = useState();
 
   const [quantity, setQuantity] = useState(1);
@@ -41,10 +42,10 @@ export default function EventPage() {
     }
 
     const order = {
-      event: thisEvent.title,
-      eventId: thisEvent.eventId,
+      event: "INSPARK",
+      eventId: "INSPARK2022",
       ticketClass: ticketClass,
-      quantity: quantity,
+      quantity: 1,
       totalPrice: quantity * price,
       paymentMethod: payMethod,
       email: email,
@@ -67,16 +68,16 @@ export default function EventPage() {
   };
 
   const handleChange = (event) => {
-    setValue(event.target.value);
-    const chosenTicket = thisEvent.tickets.find(
-      (ticket) => ticket.class == event.target.value
-    );
-    setPrice(chosenTicket.price);
+    // setValue(event.target.value);
+    // const chosenTicket = thisEvent.tickets.find(
+    //   (ticket) => ticket.class == event.target.value
+    // );
+    // setPrice(chosenTicket.price);
   };
 
   const openModal = () => {
-    setPrice(thisEvent.tickets[0].price);
-    setTicketClass(thisEvent.tickets[0].class);
+    // setPrice(thisEvent.tickets[0].price);
+    // setTicketClass(thisEvent.tickets[0].class);
     setShowModal(!showModal);
   };
 
@@ -133,42 +134,21 @@ export default function EventPage() {
                 </div>
                 <div className="mx-5 flex items-center mb-8">
                   <Image
-                    src={imagePath}
+                    src={BandImage}
                     width={100}
                     height={100}
                     className="rounded-md"
                     alt=""
                   />
                   <div className="pl-5 text-neutral-700">
-                    <p className="text-2xl">TEST</p>
-                    <p>TESTDATE</p>
+                    <p className="text-2xl">Kårhus-entré</p>
+                    <p>Valfritt datum under insparken</p>
                   </div>
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
-                  <div className="flex text-xl">
-                    <p className="text-neutral-700">Biljettklass:</p>
-                    <select
-                      value={value}
-                      onChange={handleChange}
-                      className="ml-4 bg-neutral-200 rounded-md text-neutral-500 shadow-sm"
-                    >
-                      {/* {thisEvent.tickets.map((ticket) => (
-                        <option key={ticket.class} value={ticket.class}>
-                          {ticket.class}
-                        </option>
-                      ))} */}
-                    </select>
-                    <input
-                      type="number"
-                      className="ml-2 bg-neutral-200 rounded-md text-neutral-500 shadow-sm w-[30px] text-center"
-                      value={quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
-                    />
-                  </div>
-
                   <div className=" flex pt-4 text-3xl text-neutral-700 justify-center font-bold">
                     <p>Pris:</p>
-                    <p className="pl-2">{price * quantity} SEK</p>
+                    <p className="pl-2">50 SEK</p>
                   </div>
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
@@ -206,19 +186,6 @@ export default function EventPage() {
                         onClick={(e) => paymentClick(e)}
                       ></div>
                     )}
-                    {payMethod == "stripe" ? (
-                      <div
-                        id="stripe"
-                        className="border-4 border-violer-400 bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
-                        onClick={(e) => paymentClick(e)}
-                      ></div>
-                    ) : (
-                      <div
-                        id="stripe"
-                        className="bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
-                        onClick={(e) => paymentClick(e)}
-                      ></div>
-                    )}
                   </div>
                   {payError ? (
                     <p className="text-sm pt-2 text-red-500">{payError}</p>
@@ -229,11 +196,11 @@ export default function EventPage() {
                     className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full  text-4xl font-steelfish text-neutral-800 rounded-lg py-6 shadow-lg"
                     onClick={onSubmit}
                   >
-                    KÖP-Submit
+                    BETALA
                   </button>
                 </div>
-                <p className="text-xs text-center pt-4 text-neutral-500">
-                  Genom att klicka på köp så godkänner du våra villkor för
+                <p className="text-xs text-center pt-4 pb-4 text-neutral-500">
+                  Genom att klicka på betala så godkänner du våra villkor för
                   biljettköp.
                 </p>
               </div>
@@ -242,31 +209,34 @@ export default function EventPage() {
         ) : null}
       </div>
       <div className="relative">
-        {/* <Image
-          src={imagePath}
+        <Image
+          src={BandImage}
           alt=""
           className=""
           priority
           height={400}
           width={400}
-        /> */}
+        />
         <div className="bg-gradient-to-t from-neutral-800 h-60 absolute bottom-0 w-full"></div>
       </div>
       <div className="">
         <h1 className="text-8xl font-steelfish pl-2 pt-4 text-[#d57187]">
-          TEST TITLE
+          Kårhus-entré
         </h1>
 
         <p className="pl-2 pt-2 font-appareo text-xl text-neutral-400">
-          TEST DATE
+          Gäller valfritt datum under insparken
         </p>
 
-        <p className="pl-2 pt-2 text-2xl text-neutral-300">TEST DESC</p>
+        <p className="pl-2 pt-2 text-2xl text-neutral-300">
+          För att kunna använda denna biljett så måste du uppvisa ett giltigt
+          band vid entrén. Vi ses på Rouge!
+        </p>
         <button
           className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full fixed bottom-0 h-20 text-3xl font-steelfish text-neutral-800"
           onClick={() => openModal()}
         >
-          KÖP BILJETT FRÅN 2839 SEK
+          KÖP BILJETT
         </button>
       </div>
     </div>

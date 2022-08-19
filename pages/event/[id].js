@@ -159,12 +159,12 @@ export default function EventPage({ data }) {
                         </option>
                       ))}
                     </select>
-                    <input
+                    {/* <input
                       type="number"
                       className="ml-2 bg-neutral-200 rounded-md text-neutral-500 shadow-sm w-[30px] text-center"
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
-                    />
+                    /> */}
                   </div>
 
                   <div className=" flex pt-4 text-3xl text-neutral-700 justify-center font-bold">
@@ -207,7 +207,7 @@ export default function EventPage({ data }) {
                         onClick={(e) => paymentClick(e)}
                       ></div>
                     )}
-                    {payMethod == "stripe" ? (
+                    {/* {payMethod == "stripe" ? (
                       <div
                         id="stripe"
                         className="border-4 border-violer-400 bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
@@ -219,7 +219,7 @@ export default function EventPage({ data }) {
                         className="bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
                         onClick={(e) => paymentClick(e)}
                       ></div>
-                    )}
+                    )} */}
                   </div>
                   {payError ? (
                     <p className="text-sm pt-2 text-red-500">{payError}</p>
