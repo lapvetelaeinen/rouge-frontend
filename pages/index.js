@@ -92,11 +92,11 @@ export default function Home({ isMobileView, posts }) {
             </div>
           </div>
         ) : null}
-        <div className="pt-10 md:pl-40">
+        {/* <div className="pt-10 md:pl-40">
           <h2 className="font-steelfish text-[100px] text-[#d57187] pl-4 pb-4">
             Följ oss! <p className="inline text-5xl pl-6">🎟️</p>
           </h2>
-        </div>
+        </div> */}
       </main>
     </div>
   );

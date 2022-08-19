@@ -214,12 +214,7 @@ function Calendar() {
         <table className="table-auto">
           <tbody>{selectWeek()}</tbody>
         </table>
-        <button
-          className="bg-[#d57187] w-full py-4 shadow-md rounded-b-xl"
-          onClick={() => weekFunction(week)}
-        >
-          Se hela schemat
-        </button>
+        <div className="bg-[#d57187] w-full py-4 shadow-md rounded-b-xl"></div>
       </div>
     </div>
   );

@@ -22,14 +22,8 @@ function MobileNav() {
           <Link href="/">
             <a className="hover:text-violet-300">Hem</a>
           </Link>
-          <Link href="/">
-            <a className="hover:text-violet-300">Schema</a>
-          </Link>
-          <Link href="/">
+          <Link href="/#tickets">
             <a className="hover:text-violet-300">Biljetter</a>
-          </Link>
-          <Link href="/">
-            <a className="hover:text-violet-300">Kontakt</a>
           </Link>
         </div>
         <Ticket

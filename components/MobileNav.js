@@ -21,17 +21,17 @@ function MobileNav() {
       <div className="bg-neutral-900 flex justify-between items-center py-3 px-4 md:hidden">
         {isOpen ? (
           <Times
-            fill="url('#myGradient2')"
+            fill="#00000000"
             width="35px"
             height="35px"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => console.log("Who cares about menus")}
           />
         ) : (
           <Bars
-            fill="url('#myGradient2')"
+            fill="#00000000"
             width="35px"
             height="35px"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => console.log("Who cares about menus")}
           />
         )}
         <div className="relative" onClick={() => clickLogo()}>
