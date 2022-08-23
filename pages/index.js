@@ -7,6 +7,7 @@ import styles from "../styles/Home.module.css";
 import useSWR from "swr";
 import axios from "axios";
 import EventCard from "../components/EventCard";
+import Booking from "../components/Booking";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -74,7 +75,10 @@ export default function Home({ isMobileView, posts }) {
           <Calendar />
         </div> */}
         {data ? (
-          <div className="pt-10 md:pl-40" onClick={() => console.log(events)}>
+          <div
+            className="pt-10 md:pl-40 mb-20"
+            onClick={() => console.log(events)}
+          >
             <h2
               id="tickets"
               className="font-steelfish text-[100px] text-[#d57187] pl-4 pb-4"
@@ -97,6 +101,7 @@ export default function Home({ isMobileView, posts }) {
             Följ oss! <p className="inline text-5xl pl-6">🎟️</p>
           </h2>
         </div> */}
+        <Booking />
       </main>
     </div>
   );
