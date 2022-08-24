@@ -15,8 +15,8 @@ export default function EventPage() {
   const [payError, setPayError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [email, setEmail] = useState("");
-  const [value, setValue] = useState(80);
-  const [price, setPrice] = useState(80);
+  const [value, setValue] = useState(50);
+  const [price, setPrice] = useState(50);
   const [ticketClass, setTicketClass] = useState("Sponsor");
   const [orderDetail, setOrderDetail] = useState();
 

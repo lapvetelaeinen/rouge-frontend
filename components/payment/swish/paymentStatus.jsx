@@ -31,6 +31,8 @@ const PaymentStatus = (props) => {
           return;
         }
 
+        console.log("this is the data: ", data);
+
         axios({
           method: "post",
           url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",

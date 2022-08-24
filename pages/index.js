@@ -7,7 +7,6 @@ import styles from "../styles/Home.module.css";
 import useSWR from "swr";
 import axios from "axios";
 import EventCard from "../components/EventCard";
-import Booking from "../components/Booking";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -101,7 +100,6 @@ export default function Home({ isMobileView, posts }) {
             Följ oss! <p className="inline text-5xl pl-6">🎟️</p>
           </h2>
         </div> */}
-        <Booking />
       </main>
     </div>
   );
