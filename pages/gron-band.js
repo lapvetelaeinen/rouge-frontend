@@ -190,6 +190,19 @@ export default function EventPage() {
                         onClick={(e) => paymentClick(e)}
                       ></div>
                     )}
+                    {payMethod == "stripe" ? (
+                      <div
+                        id="stripe"
+                        className="border-4 border-violet-400 bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
+                        onClick={(e) => paymentClick(e)}
+                      ></div>
+                    ) : (
+                      <div
+                        id="stripe"
+                        className="bg-neutral-200 bg-visa h-[80px] bg-contain bg-no-repeat w-full bg-center p-3 border-violet-400 rounded-xl shadow-md"
+                        onClick={(e) => paymentClick(e)}
+                      ></div>
+                    )}
                   </div>
                   {payError ? (
                     <p className="text-sm pt-2 text-red-500">{payError}</p>

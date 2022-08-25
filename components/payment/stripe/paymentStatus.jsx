@@ -43,7 +43,7 @@ const PaymentStatus = (props) => {
         data;
         switch (data.paymentStatus) {
           case "succeeded":
-            setMessage("Payment succeeded!");
+            setMessage("success");
             createOrder(data.metadata);
             break;
           case "processing":
@@ -75,34 +75,59 @@ const PaymentStatus = (props) => {
         )}
       </div>
       {paymentMeta && paymentMeta.eventId && (
+        <div id="swish-payment-status" className="h-screen bg-neutral-800">
+          <div>
+            {isLoading ? (
+              <h1 className={styles.paymentStatusMessage}>Loading...</h1>
+            ) : (
+              ""
+            )}
+          </div>
+          {/* {paymentMeta && paymentMeta.id && (
         <div className="flex">
           <ul>
             <li>
-              <b>Email</b>: {paymentMeta.email}
+              <b>Message</b>: {paymentMeta.message}
             </li>
             <li>
-              <b>EventId</b>: {paymentMeta.eventId}
+              <b>Amount</b>: {paymentMeta.amount}
             </li>
             <li>
-              <b>Event Name</b>: {paymentMeta.eventName}
-            </li>
-            <li>
-              <b>Quantity</b>: {paymentMeta.quantity}
-            </li>
-            <li>
-              <b>Ticket Class</b>: {paymentMeta.ticketClass}
-            </li>
-            <li>
-              <b>Total Price</b>: {paymentMeta.totalPrice}
+              <b>Status</b>: {paymentMeta.status}
             </li>
           </ul>
         </div>
-      )}
+      )} */}
 
-      {/* Show any error or success messages */}
-      {message && !isLoading && (
-        <div>
-          <h1 className={styles.paymentStatusMessage}>Status: {message}</h1>
+          {/* Show any error or success messages */}
+          {message === "pending" && !isLoading && (
+            <div className="flex flex-col justify-center items-center pt-20 text-center">
+              <div className="bg-neutral-300 p-10 rounded-lg">
+                <h1 className="text-2xl text-neutral-800">
+                  Väntar på betalning...
+                </h1>
+                <p className="pt-10 text-xl text-neutral-600">
+                  Trött på att vänta?
+                </p>
+                <button
+                  className="bg-violet-400 p-4 rounded-md shadow-md mt-5 text-neutral-700"
+                  onClick={() => setIsClicked(!isClicked)}
+                >
+                  Gå före i kön
+                </button>
+              </div>
+            </div>
+          )}
+          {message === "success" ? (
+            <>
+              <div className="flex justify-center font-steelfish text-[60px] text-[#d57187]">
+                <h2>Tack för ditt köp!</h2>
+              </div>
+              <p className="text-center text-neutral-400">
+                En QR-kod skickas strax till {paymentMeta.email}.
+              </p>
+            </>
+          ) : null}
         </div>
       )}
     </div>

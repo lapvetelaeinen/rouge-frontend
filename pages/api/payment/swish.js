@@ -161,6 +161,8 @@ const handler = async (req, res) => {
 
         console.log("WE HAVE RESULT: ", result);
 
+        const date = result.dateCreated.substring(0, 10);
+
         await axios({
           method: "post",
           url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
@@ -168,6 +170,8 @@ const handler = async (req, res) => {
           data: {
             ticketId: result.id,
             event: body.event,
+            amount: result.amount,
+            date: date,
             ticketClass: body.ticketClass,
             owner: body.email,
             used: false,

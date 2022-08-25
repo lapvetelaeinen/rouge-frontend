@@ -4,80 +4,69 @@ import { v4 as uuidv4 } from "uuid";
 import QRCode from "qrcode";
 
 export default async function handler(req, res) {
-  // if (req.method === "POST") {
-  //   const ticketId = uuidv4();
+  let thisDate = new Date();
 
-  //   const thisQRCode = await QRCode.toDataURL(ticketId);
+  const newDate = thisDate.toISOString().split("T")[0];
 
-  //   await axios({
-  //     method: "post",
-  //     url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
-  //     headers: {},
-  //     data: {
-  //       ticketId: ticketId,
-  //       eventId: req.body.eventId,
-  //       qrCode: thisQRCode.toString(),
-  //       event: req.body.event,
-  //       ticketClass: req.body.ticketClass,
-  //       owner: req.body.email,
-  //     },
-  //   });
+  const randomNumber = Math.floor(Math.random() * 90000) + 10000;
 
-  //   res.status(200).send("hello");
-  // }
+  const url =
+    "https://mcogg5h829.execute-api.eu-west-2.amazonaws.com/tickt/ticket";
+  const options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      ticketId: req.body.ticketId,
+    }),
+  };
+  const data = await fetch(url, options)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("RESPONSE FROM API: ", data);
+      if (data) {
+        console.log("THIS IS TEH DATA::::: ", data);
+        return data;
+      }
+    });
 
-  // SEND EMAIL
-  //
+  if (data) {
+    return;
+  }
+
   if (req.method === "POST") {
-    const ticketId = uuidv4();
-
     await axios({
       method: "post",
       url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
       headers: {},
       data: {
-        ticketId: ticketId,
+        ticketId: req.body.ticketId,
         eventId: req.body.eventId,
         event: req.body.eventName,
+        date: newDate,
+        amount: req.body.totalPrice,
         ticketClass: req.body.ticketClass,
         owner: req.body.email,
+        randomNumber: randomNumber,
         used: false,
+        paymentStatus: "PAID",
       },
     });
 
-    //     const QR = await QRCode.toDataURL(ticketId);
-    //     const browser = await puppeteer.launch();
-    //     const page = await browser.newPage();
-    //     await page.setContent(`<html>
-    //   <head>
-    //     <style>
-    //       html {height: 100%;}
-    //       body {background-color: powderblue; height: 100%;} h1 {color: blue;} p {color: red;}
-    //       .image-box {width: 100vw; height: 100%; display: flex; justify-content: center; align-items: center;}
-    //       img {width: 80%;}
-    //     </style>
-    //   </head>
-    //   <body>
-    // <div class="image-box"><img src="${QR}"></img></div>
-
-    //   </body>
-    // </html>`);
-    //     await page.emulateMediaType("screen");
-    //     const pdf = await page.pdf({
-    //       format: "A4",
-    //       printBackground: true,
-    //     });
-
-    //     await browser.close();
+    console.log("!!!!!!PASSED SECURITY!!!!");
 
     await axios({
       method: "post",
       url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
       headers: {},
       data: JSON.stringify({
-        recipent: "filip.lapvetelainen@gmail.com",
-        ticketId: ticketId,
+        recipent: req.body.email,
+        ticketId: req.body.ticketId,
         eventName: req.body.eventName,
+        color: req.body.color,
+        randomNumber: randomNumber,
       }),
     });
     res.status(200).send("hello");
