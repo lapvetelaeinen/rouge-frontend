@@ -39,7 +39,7 @@ export default function Create() {
       name: data.name,
       email: data.email,
       date: stringDate.substring(0, 10),
-      desc: data.description,
+      description: data.description,
       phone: data.phone,
     });
     reset();
