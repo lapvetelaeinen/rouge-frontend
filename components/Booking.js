@@ -74,7 +74,8 @@ export default function Create() {
               <p className="inline text-2xl ml-2">💃</p>
             </div>
             <DatePicker
-              selected={new Date()}
+              selected={date}
+              onChange={(date) => setDate(date)}
               className="p-4 bg-neutral-700 placeholder-neutral-500 text-neutral-300 rounded-md shadow-sm text-sm w-full"
             />
             <div className="flex pb-1 mt-4">
