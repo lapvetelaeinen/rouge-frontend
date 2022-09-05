@@ -172,6 +172,7 @@ const handler = async (req, res) => {
             event: body.event,
             amount: result.amount,
             date: date,
+            datum: date,
             ticketClass: body.ticketClass,
             owner: body.email,
             used: false,

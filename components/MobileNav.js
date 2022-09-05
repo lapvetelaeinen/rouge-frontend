@@ -21,17 +21,17 @@ function MobileNav() {
       <div className="bg-neutral-900 flex justify-between items-center py-3 px-4 md:hidden">
         {isOpen ? (
           <Times
-            fill="#00000000"
+            fill="url('#myGradient')"
             width="35px"
             height="35px"
-            onClick={() => console.log("Who cares about menus")}
+            onClick={() => setIsOpen(false)}
           />
         ) : (
           <Bars
-            fill="#00000000"
+            fill="url('#myGradient')"
             width="35px"
             height="35px"
-            onClick={() => console.log("Who cares about menus")}
+            onClick={() => setIsOpen(true)}
           />
         )}
         <div className="relative" onClick={() => clickLogo()}>
@@ -49,22 +49,27 @@ function MobileNav() {
           <ul className="flex flex-col font-appareo text-4xl text-neutral-300 pt-10 pl-4">
             <Link href="/">
               <a href="" onClick={() => setIsOpen(!isOpen)} className="p-2">
-                Home
+                Hem
               </a>
             </Link>
             <Link href="/">
               <a href="" onClick={() => setIsOpen(!isOpen)} className="p-2">
-                Tickets
+                Biljetter
               </a>
             </Link>
             <Link href="/">
               <a href="" onClick={() => setIsOpen(!isOpen)} className="p-2">
-                Schedule
+                Schema
               </a>
             </Link>
             <Link href="/">
               <a href="" onClick={() => setIsOpen(!isOpen)} className="p-2">
-                Contact
+                Bokningar
+              </a>
+            </Link>
+            <Link href="/">
+              <a href="" onClick={() => setIsOpen(!isOpen)} className="p-2">
+                Kontakt
               </a>
             </Link>
           </ul>
