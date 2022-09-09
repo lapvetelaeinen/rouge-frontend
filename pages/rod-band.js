@@ -154,6 +154,9 @@ export default function EventPage() {
                     <p>Pris:</p>
                     <p className="pl-2">50 SEK</p>
                   </div>
+                    <p className="text-center px-4 pb-4 text-red-500">
+                      Biljetten är inte återbetalningsbar. Köpt biljett är ingen garanti för att ta sig in ifall lokalens max-kapacitet nåtts.
+                    </p>
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
                   <div className="flex flex-col text-xl">
