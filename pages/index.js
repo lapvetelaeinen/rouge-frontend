@@ -8,6 +8,8 @@ import useSWR from "swr";
 import axios from "axios";
 import EventCard from "../components/EventCard";
 import Booking from "../components/Booking";
+import { Router } from "next/router";
+import { useRouter } from "next/router.js";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -19,6 +21,8 @@ export default function Home({ isMobileView, posts }) {
   // if (!data) return "Loading...";
   console.log(error);
   console.log(events);
+
+  const router = useRouter();
 
   saveEvents(data);
 
@@ -45,15 +49,17 @@ export default function Home({ isMobileView, posts }) {
 
       <main className="bg-neutral-800 min-h-[100vh]">
         <div className="relative w-full h-full">
-          <div className="absolute bg-neutral-800 bg-opacity-50 w-full h-full flex justify-center items-center text-violet-300 text-[60px] font-steelfish text-center">
-            <h1>
-              NATTKLUBBEN
-              <br />
-              NÄRA
-              <br />
-              STUDENTERNA!
-            </h1>
+          <div className="absolute top-[40%] z-50 w-full text-center">
+            {" "}
+            <button
+              className="bg-[#d57187] text-neutral-800 py-2 px-8 rounded-xl font-steelfish text-[40px] shadow-2xl border-2 border-neutral-700 cursor-pointer hover:bg-violet-300"
+              onClick={() => router.push("/#boka")}
+            >
+              BOKA SITTNING
+            </button>
           </div>
+
+          <div className="absolute bg-neutral-800 bg-opacity-50 w-full h-full flex justify-center items-center text-violet-300 text-[40px] font-steelfish text-center"></div>
           {isMobileView ? (
             <video src="/mobile-hero.mp4" playsInline autoPlay loop muted />
           ) : (
