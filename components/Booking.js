@@ -57,7 +57,7 @@ export default function Create() {
           ni får uppleva läsårets galnaste sittning!
         </p>
       </div>
-      <div className="p-4 flex justify-center">
+      <div id="boka" className="p-4 flex justify-center">
         <div className="bg-neutral-800 px-2 py-10 max-w-[600px] flex-1 rounded-lg">
           <form
             onSubmit={handleSubmit(onSubmit)}
