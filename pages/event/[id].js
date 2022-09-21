@@ -147,7 +147,7 @@ export default function EventPage({ data }) {
                   />
                   <div className="pl-5 text-neutral-700">
                     <p className="text-2xl">{thisEvent.title}</p>
-                    <p>Gäller valfri dag under insparken</p>
+
                   </div>
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
