@@ -11,7 +11,7 @@ const PaymentStatus = (props) => {
 
   async function checkTicket(ticketId) {
     const url =
-      "https://mcogg5h829.execute-api.eu-west-2.amazonaws.com/tickt/ticket";
+      "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/get-sold-ticket";
     const options = {
       method: "POST",
       headers: {
@@ -19,6 +19,7 @@ const PaymentStatus = (props) => {
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
+        eventName: "zara-larsson",
         ticketId: ticketId,
       }),
     };
@@ -40,7 +41,7 @@ const PaymentStatus = (props) => {
           data: JSON.stringify({
             recipent: data.owner,
             ticketId: ticketId,
-            eventName: data.event,
+            eventName: data.eventName,
             color: data.color,
             randomNumber: data.randomNumber,
           }),

@@ -49,7 +49,7 @@ function EventCard({ event }) {
     // </div>
     <div
       className="bg-neutral-100 mr-4 rounded-3xl max-w-[400px]"
-      onClick={() => router.push(`/event/${event.eventId}`)}
+      onClick={() => router.push(`/events/${event.eventName}`)}
     >
       <Image
         src={eventImage}
@@ -61,10 +61,11 @@ function EventCard({ event }) {
       />
 
       <h2 className="text-5xl font-steelfish text-center text-neutral-800 pt-2">
-        {event.title}
+      
+        {event.eventName.split("_")[0].replace("-", " ").toUpperCase()}
       </h2>
       <p className="font-appareo text-center pt-2 pb-4 text-neutral-600">
-        {event.date.substring(0, 10)}
+        {event.eventDate}
       </p>
     </div>
   );

@@ -44,8 +44,8 @@ export default async function handler(req, res) {
       data: {
         ticketId: req.body.ticketId,
         eventId: req.body.eventId,
-        event: req.body.eventName,
-        date: newDate,
+        eventName: req.body.eventName,
+        purchaseDate: newDate,
         amount: req.body.totalPrice,
         ticketClass: req.body.ticketClass,
         owner: req.body.email,

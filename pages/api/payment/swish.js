@@ -165,13 +165,13 @@ const handler = async (req, res) => {
 
         await axios({
           method: "post",
-          url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
+          url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/create-order",
           headers: {},
           data: {
             ticketId: result.id,
-            event: body.event,
+            eventName: body.event,
             amount: result.amount,
-            date: date,
+            purchaseDate: result.dateCreated,
             datum: date,
             ticketClass: body.ticketClass,
             owner: body.email,

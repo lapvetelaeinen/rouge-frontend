@@ -10,34 +10,35 @@ import EventCard from "../components/EventCard";
 import Booking from "../components/Booking";
 import { Router } from "next/router";
 import { useRouter } from "next/router.js";
+import { useState } from "react";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export default function Home({ isMobileView, posts }) {
+  const [allEvents, setAllEvents] = useState(null);
   const { events, saveEvents } = useContext(EventContext);
   const { data, error } = useSWR("/api/events", fetcher);
 
-  // if (error) return "An error has occurred.";
-  // if (!data) return "Loading...";
-  console.log(error);
-  console.log(events);
+
+
+
+  console.log("nanana ", allEvents);
+
 
   const router = useRouter();
 
   saveEvents(data);
 
-  // console.log("THIS IS THE STATUS: ", status);
-
-  function getPDF() {
-    return axios.get("/api/pdf", {
-      responseType: "arraybuffer",
-      headers: {
-        Accept: "application/pdf",
-      },
-    });
-  }
 
   console.log("MOBILE??? ", isMobileView);
+
+  useEffect(() => {
+    if(!allEvents){
+      axios.get("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/get-events").then(res => setAllEvents(res.data));
+      console.log("this is events: ", allEvents);
+    } return;
+
+    });
 
   return (
     <div className={styles.container}>
@@ -80,7 +81,7 @@ export default function Home({ isMobileView, posts }) {
 
           <Calendar />
         </div> */}
-        {data ? (
+        {allEvents ? (
           <div
             className="pt-10 md:pl-40 pb-10"
             onClick={() => console.log(events)}
@@ -92,12 +93,13 @@ export default function Home({ isMobileView, posts }) {
               Biljetter <p className="inline text-5xl pl-6">🎟️</p>
             </h2>
             <div className={styles.mediaScroller}>
-              {data.map((event) => (
+              {allEvents.map((event) => (
+                event.hasTickets === "yes" ?
                 <EventCard
                   key={event.eventId}
                   id={event.eventId}
                   event={event}
-                />
+                /> : null
               ))}
             </div>
           </div>
