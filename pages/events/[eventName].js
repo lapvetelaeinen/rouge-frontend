@@ -148,8 +148,8 @@ export default function EventsPage({ data }) {
                     alt=""
                   />
                   <div className="pl-5 text-neutral-700">
-                    <p className="text-2xl">{data.eventName}</p>
-                    <p>Gäller valfri dag under insparken</p>
+                    <p className="text-2xl">{data.eventName.toUpperCase()}</p>
+                    <p>{data.eventDate}</p>
                   </div>
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
@@ -183,8 +183,8 @@ export default function EventsPage({ data }) {
                   <>
                     <p className="text-center text-red-500">Viktigt!</p>
                     <p className="text-center px-4 pb-4 text-red-500">
-                      Vid köp av grön eller röd biljett så måste du visa upp
-                      giltigt band vid entrén.
+                      Vid köp av kår- eller studentbiljett så måste du visa upp
+                      giltigt studentlegg.
                     </p>
                   </>
                 ) : null}

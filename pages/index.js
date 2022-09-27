@@ -32,13 +32,30 @@ export default function Home({ isMobileView, posts }) {
 
   console.log("MOBILE??? ", isMobileView);
 
-  useEffect(() => {
-    if(!allEvents){
-      axios.get("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/get-events").then(res => setAllEvents(res.data));
-      console.log("this is events: ", allEvents);
-    } return;
+  const getAllEvents = async () => {
+    if (!allEvents){
+      const events = await axios.get("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/get-events");
+      let sortedEvents = [];
+      let sortedDates = [];
+      events.data.forEach((event) => {
+        sortedDates.push(event.eventDate);
+      });
+      sortedDates.sort();
+      sortedDates.forEach((date) => {
+        events.data.forEach((event) => {
+          if (date === event.eventDate){
+            sortedEvents.push(event);
+          } return;
+        })
+      });
+      console.log("EVENT DATES: ", sortedEvents.sort());
+      setAllEvents(sortedEvents);
+      return;
+    }
+    console.log("We already have events: ", allEvents);
+  }
 
-    });
+getAllEvents();
 
   return (
     <div className={styles.container}>
