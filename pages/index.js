@@ -49,7 +49,7 @@ export default function Home({ isMobileView, posts }) {
         })
       });
       console.log("EVENT DATES: ", sortedEvents.sort());
-      setAllEvents(sortedEvents);
+      setAllEvents(events.data);
       return;
     }
     console.log("We already have events: ", allEvents);
