@@ -10,14 +10,16 @@ export default function EventsPage({ data }) {
   const router = useRouter();
   const passedID = router.query.id;
   const [showModal, setShowModal] = useState(false);
+  const [soldOut, setSoldOut] = useState(false);
 
   const [allTickets, setAllTickets] = useState(null);
 
   const [payError, setPayError] = useState(null);
   const [emailError, setEmailError] = useState(null);
+  const [soldOutError, setSoldOutError] = useState(null);
   const [email, setEmail] = useState("");
   const [value, setValue] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(null);
   const [ticketClass, setTicketClass] = useState("");
   const [orderDetail, setOrderDetail] = useState();
 
@@ -26,6 +28,13 @@ export default function EventsPage({ data }) {
 
 
   const onSubmit = async () => {
+    if (soldOut) {
+      setSoldOutError("*Denna biljettklass är slutsåld.");
+      return;
+    } else {
+      setSoldOutError(null);
+    }
+
     if (!validateEmail(email)) {
       setEmailError("*Ange en giltig email");
       return;
@@ -65,15 +74,30 @@ export default function EventsPage({ data }) {
     const chosenTicket = allTickets.find(
       (ticket) => ticket.ticketClass == event.target.value
     );
-    setTicketClass(chosenTicket.ticketClass);
-    setPrice(chosenTicket.price);
-    console.log(ticketClass);
+
+    if (chosenTicket.soldOut){
+      setSoldOut(true);
+    } else {
+      setSoldOut(false);
+      setTicketClass(chosenTicket.ticketClass);
+      setPrice(chosenTicket.price);
+      console.log(ticketClass);
+    }
+    console.log(chosenTicket);
+
   };
 
   const openModal = () => {
-    setPrice(allTickets[0].price);
-    setTicketClass(allTickets[0].ticketClass);
-    setShowModal(!showModal);
+    if (price){
+      setShowModal(!showModal);
+    } else {
+      setPrice(allTickets[0].price);
+      setTicketClass(allTickets[0].ticketClass);
+      setShowModal(!showModal);
+      setSoldOut(allTickets[0].soldOut);
+    };
+    console.log(soldOut);
+
   };
 
   const paymentClick = (e) => {
@@ -103,7 +127,7 @@ export default function EventsPage({ data }) {
     if (!allTickets){
       const biljetter = await axios.get(`https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/get-tickets?eventName=${data.eventName}`);
       setAllTickets(biljetter.data);
-      console.log("TICKETS>>>>", biljetter);
+      console.log("TICKETS>>>>", biljetter.data);
       return;
     } console.log("WE HAVE TICKETS");
   }
@@ -154,6 +178,7 @@ export default function EventsPage({ data }) {
                 </div>
                 <div className="bg-neutral-300 mx-5 rounded-lg p-4 mb-4 shadow-md ">
                   <div className="flex text-xl">
+                    
                     <p className="text-neutral-700">Biljettklass:</p>
                     <select
                       value={value}
@@ -175,8 +200,9 @@ export default function EventsPage({ data }) {
                   </div>
 
                   <div className=" flex pt-4 text-3xl text-neutral-700 justify-center font-bold">
-                    <p>Pris:</p>
-                    <p className="pl-2">{price} SEK</p>
+                    {soldOut ? <p className="text-xl text-center">Denna biljettklass är slutsåld!</p> : <>                    <p>Pris:</p>
+                    <p className="pl-2">{price} SEK</p></>}
+
                   </div>
                 </div>
                 {ticketClass != "Vanlig" ? (
@@ -245,6 +271,9 @@ export default function EventsPage({ data }) {
                     <p className="text-sm pt-2 text-red-500">{payError}</p>
                   ) : null}
                 </div>
+                {soldOutError ? (
+                    <p className="text-sm pt-2 text-red-500 text-center pb-2">{soldOutError}</p>
+                  ) : null}
                 <div className="mx-5">
                   <button
                     className="bg-gradient-to-r from-[#d57187] to-violet-400 w-full  text-4xl font-steelfish text-neutral-800 rounded-lg py-6 shadow-lg"
