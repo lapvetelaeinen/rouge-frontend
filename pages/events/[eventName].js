@@ -124,8 +124,13 @@ export default function EventsPage({ data }) {
   const imagePath = BUCKET_URL + data.image;
 
   const getAllTickets = async () => {
+
+    const params = {
+      eventName: data.eventName
+    };
+
     if (!allTickets){
-      const biljetter = await axios.get(`https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/get-tickets?eventName=${data.eventName}`);
+      const biljetter = await axios.post("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/temp", params);
       setAllTickets(biljetter.data);
       console.log("TICKETS>>>>", biljetter.data);
       return;
