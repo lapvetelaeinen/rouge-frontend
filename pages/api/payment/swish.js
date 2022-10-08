@@ -164,6 +164,8 @@ const handler = async (req, res) => {
         const date = new Date();
         const newDate = date.toLocaleDateString() + "T" + date.toString().split(' ')[4];
 
+        const correctDate = newDate.toString();
+
         //SAVE SWISH REQUEST IN DB
 
         await axios({
@@ -174,7 +176,7 @@ const handler = async (req, res) => {
             orderId: result.id,
             eventName: body.event,
             price: result.amount,
-            paymentDate: newDate,
+            paymentDate: correctDate,
             paymentMethod: "SWISH",
             ticketClass: body.ticketClass,
             customer: body.email,
