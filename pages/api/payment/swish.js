@@ -161,24 +161,25 @@ const handler = async (req, res) => {
 
         console.log("WE HAVE RESULT: ", result);
 
-        const date = result.dateCreated.substring(0, 10);
+        const date = new Date();
+        const newDate = date.toLocaleDateString() + "T" + date.toString().split(' ')[4];
+
+        //SAVE SWISH REQUEST IN DB
 
         await axios({
           method: "post",
-          url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/create-order",
+          url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/create-swish-request",
           headers: {},
           data: {
-            ticketId: result.id,
+            orderId: result.id,
             eventName: body.event,
-            amount: result.amount,
-            purchaseDate: result.dateCreated,
-            datum: date,
+            price: result.amount,
+            paymentDate: newDate,
+            paymentMethod: "SWISH",
             ticketClass: body.ticketClass,
-            owner: body.email,
+            customer: body.email,
             used: false,
             paymentStatus: result.status,
-            color: body.color,
-            randomNumber: body.randomNumber,
           },
         });
 

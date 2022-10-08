@@ -10,8 +10,11 @@ const PaymentStatus = (props) => {
   const [ownerEmail, setOwnerEmail] = useState("");
 
   async function checkTicket(ticketId) {
+
+    //CHECK IF REQUEST EXIST AND THEN MOVE IT TO TICKET DB
+
     const url =
-      "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/get-sold-ticket";
+      "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/handle-swish-request";
     const options = {
       method: "POST",
       headers: {
@@ -20,7 +23,7 @@ const PaymentStatus = (props) => {
       },
       body: JSON.stringify({
         eventName: "zara-larsson",
-        ticketId: ticketId,
+        orderId: ticketId,
       }),
     };
     await fetch(url, options)
@@ -34,31 +37,35 @@ const PaymentStatus = (props) => {
 
         console.log("this is the data: ", data);
 
+        //SEND EMAIL BELOW
+
         axios({
           method: "post",
           url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
           headers: {},
           data: JSON.stringify({
-            recipent: data.owner,
+            recipent: data.customer,
             ticketId: ticketId,
-            eventName: data.eventName,
-            color: data.color,
-            randomNumber: data.randomNumber,
+            eventName: data.eventName
           }),
         });
 
-        axios({
-          method: "patch",
-          url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
-          headers: {},
-          data: {
-            ticketId: ticketId,
-            updateKey: "paymentStatus",
-            updateValue: "PAID",
-          },
-        });
+        // END SEND EMAIL
 
-        setOwnerEmail(data.owner);
+
+
+        // axios({
+        //   method: "patch",
+        //   url: "https://svngddunt0.execute-api.eu-west-2.amazonaws.com/tick/ticket",
+        //   headers: {},
+        //   data: {
+        //     ticketId: ticketId,
+        //     updateKey: "paymentStatus",
+        //     updateValue: "PAID",
+        //   },
+        // });
+
+        setOwnerEmail(data.customer);
       });
   }
 

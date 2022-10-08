@@ -130,7 +130,7 @@ export default function EventsPage({ data }) {
     };
 
     if (!allTickets){
-      const biljetter = await axios.post("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/temp", params);
+      const biljetter = await axios.post("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/test-get-tickets", params);
       setAllTickets(biljetter.data);
       console.log("TICKETS>>>>", biljetter.data);
       return;
