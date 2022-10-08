@@ -187,7 +187,7 @@ const handler = async (req, res) => {
             orderId: result.id,
             eventName: body.event,
             price: result.amount,
-            paymentDate: correctDate,
+            paymentDate: newDate,
             paymentMethod: "SWISH",
             ticketClass: body.ticketClass,
             customer: body.email,
