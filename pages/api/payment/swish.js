@@ -163,19 +163,6 @@ const handler = async (req, res) => {
 
         const date = new Date();
         const newDate = date.toLocaleDateString() + "T" + date.toString().split(' ')[4];
-        const oldDate = newDate.split('T')[0];
-        const oldDateArr = oldDate.split('/');
-        let newDateArr;
-
-        newDateArr.push(oldDateArr[2]);
-        newDateArr.push(oldDateArr[1]);
-        newDateArr.push(oldDateArr[0]);
-
-        let correctDate = '';
-
-        newDateArr.forEach((el) => {
-          correctDate = correctDate + el;
-        });
 
         //SAVE SWISH REQUEST IN DB
 
