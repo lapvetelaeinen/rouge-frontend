@@ -46,7 +46,8 @@ const PaymentStatus = (props) => {
           data: JSON.stringify({
             recipent: data.customer,
             ticketId: ticketId,
-            eventName: data.eventName
+            eventName: data.eventName,
+            ticketClass: data.ticketClass
           }),
         });
 

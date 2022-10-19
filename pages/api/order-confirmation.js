@@ -65,7 +65,7 @@ export default async function handler(req, res) {
         recipent: req.body.email,
         ticketId: req.body.ticketId,
         eventName: req.body.eventName,
-        color: req.body.color,
+        ticketClass: req.body.ticketClass,
         randomNumber: randomNumber,
       }),
     });
