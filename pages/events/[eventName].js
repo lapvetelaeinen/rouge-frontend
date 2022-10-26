@@ -131,8 +131,13 @@ export default function EventsPage({ data }) {
 
     if (!allTickets){
       const biljetter = await axios.post("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/test-get-tickets", params);
-      setAllTickets(biljetter.data);
-      console.log("TICKETS>>>>", biljetter.data);
+      let allTicketsArr = biljetter.data;
+
+      let first = "Vanlig";
+      allTicketsArr.sort(function(x,y){ return x.ticketClass == first ? -1 : y.ticketClass == first ? 1 : 0; });
+
+      setAllTickets(allTicketsArr);
+      console.log("TICKETS>>>>", allTicketsArr);
       return;
     } console.log("WE HAVE TICKETS");
   }
