@@ -133,10 +133,25 @@ export default function EventsPage({ data }) {
       const biljetter = await axios.post("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/test-get-tickets", params);
       let allTicketsArr = biljetter.data;
 
-      let first = "Vanlig";
-      allTicketsArr.sort(function(x,y){ return x.ticketClass == first ? -1 : y.ticketClass == first ? 1 : 0; });
+      let intArr = [];
 
-      setAllTickets(allTicketsArr);
+      allTicketsArr.forEach(el => {
+        let newObj = {
+          ticketClass: el.ticketClass,
+          price: parseInt(el.price),
+          soldOut: el.soldOut,
+          stair: el.stair,
+          eventName: el.eventName
+        }
+
+        intArr.push(newObj)
+      })
+
+
+
+      intArr.sort(((a, b) => b.price - a.price));
+
+      setAllTickets(intArr);
       console.log("TICKETS>>>>", allTicketsArr);
       return;
     } console.log("WE HAVE TICKETS");
