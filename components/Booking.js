@@ -11,6 +11,7 @@ export default function Create() {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState(null);
   const [date, setDate] = useState(new Date());
+  const [error, setError] = useState({type: "", msg: ""});
   // const [selectedDate, setSelectedDate] = useState(new Date());
 
   const toggleModal = () => {
@@ -34,6 +35,21 @@ export default function Create() {
   const onSubmit = async (data) => {
     console.log(data, "DATE: ", date);
     const stringDate = date.toString();
+
+    if(!data.name) {
+      setError({type: "name", msg: "*Ange kontaktperson"});
+      return;
+    } else if(!data.email) {
+      setError({type: "email", msg: "*Ange email"});
+      return;
+    } else if(!data.description) {
+      setError({type: "desc", msg: "*Ange typ av sittning"});
+      return;
+    } else if(!data.phone) {
+      setError({type: "phone", msg: "*Ange mobilnummer"});
+      return;
+    }
+
     setMessage("Tack för ditt meddelande!");
     createBooking({
       name: data.name,
@@ -59,6 +75,7 @@ export default function Create() {
       </div>
       <div id="boka" className="p-4 flex justify-center">
         <div className="bg-neutral-800 px-2 py-10 max-w-[600px] flex-1 rounded-lg">
+          <div className="flex flex-col text-neutral-400 mb-14"><p className="text-center">Fyll i formuläret nedan så hör vi av oss med prisförslag till er!</p><p className="text-center text-red-300">Om du vill köpa inträdesbiljetter så gör du det lite högre upp på sidan.</p></div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
@@ -93,7 +110,7 @@ export default function Create() {
               placeholder="Lasse Larsson"
               name="name"
               {...register("name")}
-              className="p-4 bg-neutral-700 placeholder-neutral-500 text-sm text-neutral-300 rounded-md shadow-sm"
+              className={`${error.type === "name" ? "border-2 border-red-400" : ""} p-4 bg-neutral-700 placeholder-neutral-500 text-sm text-neutral-300 rounded-md shadow-sm`}
             />
             <div className="flex pb-1 mt-4">
               <div className="flex flex-col justify-end">
@@ -109,7 +126,7 @@ export default function Create() {
               placeholder="lambolasse@gmail.com"
               name="email"
               {...register("email")}
-              className="p-4 text-sm bg-neutral-700 placeholder-neutral-500 text-neutral-300 rounded-md shadow-sm"
+              className={`${error.type === "email" ? "border-2 border-red-400" : ""} p-4 bg-neutral-700 placeholder-neutral-500 text-sm text-neutral-300 rounded-md shadow-sm`}
             />
             <div className="flex pb-1 mt-4">
               <div className="flex flex-col justify-end">
@@ -125,7 +142,7 @@ export default function Create() {
               placeholder="073-XXXXXXX"
               name="phone"
               {...register("phone")}
-              className="p-4 text-sm bg-neutral-700 placeholder-neutral-500 text-neutral-300 rounded-md shadow-sm"
+              className={`${error.type === "phone" ? "border-2 border-red-400" : ""} p-4 bg-neutral-700 placeholder-neutral-500 text-sm text-neutral-300 rounded-md shadow-sm`}
             />
             <div className="flex pb-1 mt-4">
               <div className="flex flex-col justify-end">
@@ -142,7 +159,7 @@ export default function Create() {
               placeholder="Vi ska fira en tisdag mitt i livet!"
               name="description"
               {...register("description")}
-              className="p-4 text-sm bg-neutral-700 placeholder-neutral-500 text-neutral-300 rounded-md shadow-sm mb-8"
+              className={`${error.type === "desc" ? "border-2 border-red-400" : ""} p-4 bg-neutral-700 placeholder-neutral-500 text-sm text-neutral-300 rounded-md shadow-sm mb-6`}
             />
 
             <input
