@@ -9,7 +9,7 @@ const PaymentStatus = (props) => {
   const [isClicked, setIsClicked] = useState(false);
   const [ownerEmail, setOwnerEmail] = useState("");
 
-  async function checkTicket(ticketId) {
+  async function checkTicket(ticketId, payer, datePaid) {
 
     //CHECK IF REQUEST EXIST AND THEN MOVE IT TO TICKET DB
 
@@ -24,6 +24,8 @@ const PaymentStatus = (props) => {
       body: JSON.stringify({
         eventName: "zara-larsson",
         orderId: ticketId,
+        payerAlias: payer,
+        datePaid: datePaid
       }),
     };
     await fetch(url, options)
@@ -124,7 +126,7 @@ const PaymentStatus = (props) => {
             break;
           case "PAID":
             setMessage("success");
-            checkTicket(paymentId);
+            checkTicket(paymentId, data.result.payerAlias, data.result.datePaid);
             break;
           case "CANCELLED":
             setMessage("Your payment cancelled.");
