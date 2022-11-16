@@ -50,8 +50,8 @@ function EventCard({ event }) {
     <>
 
 
-    <div className="shadow-lg rounded-2xl max-w-[300px] mr-10" onClick={() => router.push(`/events/${event.eventName}`)}>
-<div className="bg-red-200 relative w-[300px] h-[300px] rounded-2xl z-0">
+    <div className="shadow-lg rounded-2xl w-[250px] md:w-[300px] mr-10" onClick={() => router.push(`/events/${event.eventName}`)}>
+<div className="bg-red-200 relative w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-2xl z-0">
 
   <Image
     src={eventImage}
