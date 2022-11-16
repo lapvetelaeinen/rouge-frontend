@@ -47,27 +47,27 @@ function EventCard({ event }) {
     //     </div>
     //   </div>
     // </div>
-    <div
-      className="bg-neutral-100 mr-4 rounded-3xl max-w-[400px]"
-      onClick={() => router.push(`/events/${event.eventName}`)}
-    >
-      <Image
-        src={eventImage}
-        alt=""
-        className="rounded-t-3xl"
-        priority
-        height={400}
-        width={400}
-      />
+    <>
 
-      <h2 className="text-5xl font-steelfish text-center text-neutral-800 pt-2">
-      
-        {event.eventName.split("_")[0].replace("-", " ").toUpperCase()}
-      </h2>
-      <p className="font-appareo text-center pt-2 pb-4 text-neutral-600">
-        {event.eventDate}
-      </p>
-    </div>
+
+    <div className="shadow-lg rounded-2xl max-w-[300px] mr-10" onClick={() => router.push(`/events/${event.eventName}`)}>
+<div className="bg-red-200 relative w-[300px] h-[300px] rounded-2xl z-0">
+
+  <Image
+    src={eventImage}
+    alt="Picture of the event"
+    layout="fill"
+    priority
+    objectFit="cover"
+    className="rounded-t-2xl hidden"
+  />
+</div>
+<div className="p-4 rounded-b-2xl flex flex-col items-center bg-white">
+  <p className="font-steelfish text-4xl">{event.eventName}</p>
+  <p className="font-appareo">{event.eventDate}</p>
+</div>
+</div>
+</>
   );
 }
 

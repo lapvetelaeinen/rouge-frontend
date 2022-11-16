@@ -8,7 +8,7 @@ const PaymentStatus = (props) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const createOrder = async (params) => {
-    await axios.post("/api/order-confirmation", params).catch(function (error) {
+    await axios.post("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/rouge-stripe-payment", params).catch(function (error) {
       if (error.response) {
         console.log(error.response.data);
         console.log(error.response.status);
