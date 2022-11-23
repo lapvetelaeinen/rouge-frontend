@@ -16,8 +16,10 @@ export default function EventsPage({ data }) {
 
   const [payError, setPayError] = useState(null);
   const [emailError, setEmailError] = useState(null);
+  const [secondEmailError, setSecondEmailError] = useState(null);
   const [soldOutError, setSoldOutError] = useState(null);
   const [email, setEmail] = useState("");
+  const [secondEmail, setSecondEmail] = useState("");
   const [value, setValue] = useState("");
   const [price, setPrice] = useState(null);
   const [ticketClass, setTicketClass] = useState("");
@@ -41,6 +43,12 @@ export default function EventsPage({ data }) {
     } else {
       setEmailError(null);
     }
+    if (email.toLowerCase() === secondEmail.toLocaleLowerCase()){
+      setSecondEmailError(null)
+    } else {
+      setSecondEmailError("*Har du skrivit in rätt email?")
+      return;
+    };
     if (!payMethod) {
       setPayError("*Välj betalsätt för att gå vidare.");
       return;
@@ -257,6 +265,21 @@ export default function EventsPage({ data }) {
                     />
                     {emailError ? (
                       <p className="text-sm pt-2 text-red-500">{emailError}</p>
+                    ) : null}
+                  </div>
+                  <div className="flex flex-col text-xl pt-4 font-bold">
+                    <p className="text-neutral-700">
+                      Skriv din email igen
+                    </p>
+                    <input
+                      type="secondEmail"
+                      className="mt-4 bg-neutral-200 rounded-md text-neutral-500 shadow-sm"
+                      placeholder="partyqueen@gmail.com"
+                      value={secondEmail}
+                      onChange={(e) => setSecondEmail(e.target.value)}
+                    />
+                    {secondEmailError ? (
+                      <p className="text-sm pt-2 text-red-500">{secondEmailError}</p>
                     ) : null}
                   </div>
                 </div>
