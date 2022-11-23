@@ -53,6 +53,19 @@ const PaymentStatus = (props) => {
           }),
         });
 
+
+        // THIS IS NEW EMAIL SENDER BELOW
+        // axios({
+        //   method: "post",
+        //   url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/send-ticket",
+        //   headers: {},
+        //   data: JSON.stringify({
+        //     recipent: data.customer,
+        //     ticketId: ticketId,
+        //     eventName: data.eventName,
+        //   }),
+        // });
+
         // END SEND EMAIL
 
 
