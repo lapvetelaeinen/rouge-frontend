@@ -103,6 +103,7 @@ export default function SingleTicketPage({ ticketDetails, eventDetails }) {
           </div>
           <div className="bg-red-200 relative w-[100%] h-0 pb-[100%] rounded-t-2xl z-0">
             {useClicked ? null : (
+              <>
               <Image
                 src={eventImage}
                 alt="Picture of the event"
@@ -111,8 +112,11 @@ export default function SingleTicketPage({ ticketDetails, eventDetails }) {
                 objectFit="cover"
                 className="rounded-t-2xl hidden"
               />
+
+              </>
             )}
           </div>
+          <p className="bg-red-200 text-center text-xl py-2">{ticketDetails.ticketClass}</p>
           <div className="p-4 rounded-b-2xl flex flex-col items-center bg-white">
             <p className="font-steelfish text-4xl">{formattedName}</p>
             <p className="font-appareo">{eventDetails.eventDate}</p>
