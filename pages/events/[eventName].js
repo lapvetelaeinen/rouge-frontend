@@ -212,7 +212,7 @@ export default function EventsPage({ data }) {
                     alt=""
                   />
                   <div className="pl-5 text-neutral-700">
-                    <p className="text-2xl">{data.eventName.toUpperCase()}</p>
+                    <p className="text-2xl">{formattedName}</p>
                     <p>{data.eventDate}</p>
                   </div>
                 </div>

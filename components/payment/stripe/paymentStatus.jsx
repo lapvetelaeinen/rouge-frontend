@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import styles from "../../../styles/payment.module.css";
+import { getTicket } from "../../../pages/api/fetchTicket";
 
 const PaymentStatus = (props) => {
   const [message, setMessage] = React.useState(null);
@@ -8,6 +9,22 @@ const PaymentStatus = (props) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const createOrder = async (params) => {
+
+    const removedSpaces = params.eventName.replace(/\s+/g, "-").toLowerCase();
+    const eventName = removedSpaces
+      .replace(/å/g, "_aa_")
+      .replace(/Å/g, "_AA_")
+      .replace(/ä/g, "_ae_")
+      .replace(/Ä/g, "_AE_")
+      .replace(/ö/g, "_oe_")
+      .replace(/Ö/g, "_OE_");
+
+    const ticket = await axios.get(`https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/fetch-ticket?eventName=${eventName}&orderId=${params.ticketId}`);
+
+    if(ticket.data.eventName){
+      return;
+    };
+
     await axios.post("https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/rouge-stripe-payment", params).catch(function (error) {
       if (error.response) {
         console.log(error.response.data);
@@ -16,15 +33,42 @@ const PaymentStatus = (props) => {
       }
     });
 
+
+
+    // axios({
+    //   method: "post",
+    //   url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
+    //   headers: {},
+    //   data: JSON.stringify({
+    //     recipent: params.email,
+    //     ticketId: params.ticketId,
+    //     eventName: params.eventName,
+    //     ticketClass: params.ticketClass
+    //   }),
+    // });
+
+
+    const removeDash = params.eventName.replace(/-/g, " ").toUpperCase();
+    const formattedName = removeDash
+      .replace(/_AA_/g, "Å")
+      .replace(/_AE_/g, "Ä")
+      .replace(/_OE_/g, "Ö");
+
+
+
+
+    const randomNumber = Math.floor(Math.random() * 90000) + 10000;
+
     axios({
       method: "post",
-      url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
+      url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/send-ticket",
       headers: {},
       data: JSON.stringify({
         recipent: params.email,
-        ticketId: params.ticketId,
-        eventName: params.eventName,
-        ticketClass: params.ticketClass
+        ticketLink: "https://rougeumea.se/tickets/" + eventName + "/" + params.ticketId,
+        eventName: eventName,
+        realName: formattedName,
+        randomNumber: randomNumber
       }),
     });
   };
@@ -39,6 +83,8 @@ const PaymentStatus = (props) => {
       setIsLoading(false);
       return;
     }
+
+
 
     fetch("/api/payment/stripe", {
       method: "POST",

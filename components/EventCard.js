@@ -25,6 +25,12 @@ function EventCard({ event }) {
   //     getImageFromStorage();
   //   }, []);
 
+  const removeDash = event.eventName.replace(/-/g, " ").toUpperCase();
+  const formattedName = removeDash
+    .replace(/_AA_/g, "Å")
+    .replace(/_AE_/g, "Ä")
+    .replace(/_OE_/g, "Ö");
+
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     // <div className="pl-4" onClick={() => router.push(`/post/${post.id}`)}>
@@ -63,7 +69,7 @@ function EventCard({ event }) {
   />
 </div>
 <div className="p-4 rounded-b-2xl flex flex-col items-center bg-white">
-  <p className="font-steelfish text-4xl">{event.eventName}</p>
+  <p className="font-steelfish text-4xl">{formattedName}</p>
   <p className="font-appareo">{event.eventDate}</p>
 </div>
 </div>

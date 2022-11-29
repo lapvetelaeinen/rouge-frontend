@@ -58,6 +58,12 @@ const PaymentStatus = (props) => {
 
         const randomNumber = Math.floor(Math.random() * 90000) + 10000;
 
+        const removeDash = data.eventName.replace(/-/g, " ").toUpperCase();
+        const formattedName = removeDash
+          .replace(/_AA_/g, "Å")
+          .replace(/_AE_/g, "Ä")
+          .replace(/_OE_/g, "Ö");
+
         axios({
           method: "post",
           url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/send-ticket",
@@ -66,6 +72,7 @@ const PaymentStatus = (props) => {
             recipent: data.customer,
             ticketLink: "https://rougeumea.se/tickets/" + data.eventName + "/" + ticketId,
             eventName: data.eventName,
+            realName: formattedName,
             randomNumber: randomNumber
           }),
         });
