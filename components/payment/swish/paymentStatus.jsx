@@ -41,30 +41,34 @@ const PaymentStatus = (props) => {
 
         //SEND EMAIL BELOW
 
-        axios({
-          method: "post",
-          url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
-          headers: {},
-          data: JSON.stringify({
-            recipent: data.customer,
-            ticketId: ticketId,
-            eventName: data.eventName,
-            ticketClass: data.ticketClass
-          }),
-        });
-
-
-        // THIS IS NEW EMAIL SENDER BELOW
         // axios({
         //   method: "post",
-        //   url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/send-ticket",
+        //   url: "https://aw2406aj4d.execute-api.eu-west-2.amazonaws.com/pup/puppy",
         //   headers: {},
         //   data: JSON.stringify({
         //     recipent: data.customer,
         //     ticketId: ticketId,
         //     eventName: data.eventName,
+        //     ticketClass: data.ticketClass
         //   }),
         // });
+
+
+        // THIS IS NEW EMAIL SENDER BELOW
+
+        const randomNumber = Math.floor(Math.random() * 90000) + 10000;
+
+        axios({
+          method: "post",
+          url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/send-ticket",
+          headers: {},
+          data: JSON.stringify({
+            recipent: data.customer,
+            ticketLink: "https://rougeumea.se/tickets/" + data.eventName + "/" + ticketId,
+            eventName: data.eventName,
+            randomNumber: randomNumber
+          }),
+        });
 
         // END SEND EMAIL
 

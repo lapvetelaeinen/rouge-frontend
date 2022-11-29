@@ -168,13 +168,22 @@ const handler = async (req, res) => {
 
         //SAVE SWISH REQUEST IN DB
 
+        const removedSpaces = body.event.replace(/\s+/g, "-").toLowerCase();
+        const eventName = removedSpaces
+          .replace(/å/g, "_aa_")
+          .replace(/Å/g, "_AA_")
+          .replace(/ä/g, "_ae_")
+          .replace(/Ä/g, "_AE_")
+          .replace(/ö/g, "_oe_")
+          .replace(/Ö/g, "_OE_");
+
         await axios({
           method: "post",
           url: "https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/create-swish-request",
           headers: {},
           data: {
             orderId: result.id,
-            eventName: body.event,
+            eventName: eventName,
             price: result.amount,
             paymentDate: correctDate,
             paymentMethod: "SWISH",

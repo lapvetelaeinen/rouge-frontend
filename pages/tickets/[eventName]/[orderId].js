@@ -22,9 +22,10 @@ export default function SingleTicketPage({ ticketDetails, eventDetails }) {
 
   const ticketUse = async () => {
     const params = {
-        eventName: "25-nov-lov1-löning",
-        orderId: "02457CE88A714025B912271EF889E16C"
+        eventName: eventDetails.eventName,
+        orderId: ticketDetails.orderId
     }
+    console.log("THIS IS PARAMS: ", params);
 
     setUseClicked(false);
     const res = await axios.post(`https://47yon8pxx3.execute-api.eu-west-2.amazonaws.com/rouge-api/use-ticket`, params);
@@ -61,6 +62,12 @@ export default function SingleTicketPage({ ticketDetails, eventDetails }) {
   const eventImage = BUCKET_URL + eventDetails.image;
 
   if (!data) return "Loading...";
+
+  const removeDash = eventDetails.eventName.replace(/-/g, " ").toUpperCase();
+  const formattedName = removeDash
+    .replace(/_AA_/g, "Å")
+    .replace(/_AE_/g, "Ä")
+    .replace(/_OE_/g, "Ö");
 
   return (
     <>
@@ -107,7 +114,7 @@ export default function SingleTicketPage({ ticketDetails, eventDetails }) {
             )}
           </div>
           <div className="p-4 rounded-b-2xl flex flex-col items-center bg-white">
-            <p className="font-steelfish text-4xl">{eventDetails.eventName}</p>
+            <p className="font-steelfish text-4xl">{formattedName}</p>
             <p className="font-appareo">{eventDetails.eventDate}</p>
           </div>
         </div>
